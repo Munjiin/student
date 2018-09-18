@@ -18,8 +18,6 @@ public abstract class AbstractController extends HttpServlet {
 
         System.out.println("service..................");
 
-        // 똑같다.
-//        String path = req.getPathInfo();
         String path = req.getRequestURI().substring(getBasic().length());
 
         String way = req.getMethod(); //get인지 post인지 받는 코드

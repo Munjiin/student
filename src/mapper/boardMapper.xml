@@ -10,8 +10,10 @@
 	</delete>
 
 	<insert id="create" parameterType="BoardVO">
-		insert into tbl_board (bno, title, content, writer)
-		values (seq_board.nextval, #{title}, #{content}, #{writer})
+		insert into tbl_board (bno,
+		title, content, writer)
+		values (seq_board.nextval, #{title},
+		#{content}, #{writer})
 	</insert>
 
 
@@ -24,11 +26,11 @@ order by bno desc
 	</select>
 
 	<select id="selectPage" resultType="BoardVO">
-
 <![CDATA[
    select rownum bno, title, content, writer, regdate, updatedate, viewcnt
    from(
-   select rownum rn, bno, title, content, writer, regdate, updatedate, viewcnt from tbl_board where rownum <= ( #{page} * #{size}) order by bno desc)
+   select rownum rn, bno, title, cnt, answer,writer, addfile, regdate, updatedate from tbl_qboard 
+   where rownum <= ( #{page} * #{size}) order by bno desc)
    where rn > (#{page}-1)* #{size}
 ]]>
 	</select>

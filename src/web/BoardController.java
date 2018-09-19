@@ -28,7 +28,7 @@ public class BoardController extends AbstractController {
 	
 	
 	
-	QuestionDAO dao = new QuestionDAO();
+	BoardDAO dao = new BoardDAO();
 
 	//list
 	 public String listGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -40,10 +40,14 @@ public class BoardController extends AbstractController {
 
 	        int total = 320;
 	        PageMaker pageMaker = new PageMaker(total, dto);
+	        
+	        System.out.println("-----------------------------------------a");
 
 	        req.setAttribute("pageMaker", pageMaker);
+	        System.out.println("-----------------------------------------------b");
 	        req.setAttribute("selectPage", dao.getList(dto));
 
+	        System.out.println("-------------------------------------------c");
 	        return "list";
 	    }
 	 public String getBasic() {

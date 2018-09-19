@@ -47,17 +47,19 @@
                             <th>BNO</th>
                             <th>TITLE</th>
                             <th>WRITER</th>
+                            <th>CONTENT</th>
                             <th>REG DATE</th>
                             <th>UPDATE DATE</th>
 
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="board" items="${list}" >
+                        <c:forEach var="board" items="${selectPage}" >
                             <tr class="odd gradeX">
                                 <td>${board.bno}</td>
-                                <td><a href="read?bno=${board.bno}&page=${pageMaker.pageDTO.page}">${board.title}<span class="badge">${board.viewcnt}</span></a></td>
-                                <td>${board.writer}</td>
+                                <td>${board.title}</td>
+                                <td>${board.name}</td>
+                                <td>${board.cnt}</td>
                                 <td>${board.regdate}</td>
                                 <td>${board.updatedate}</td>
 

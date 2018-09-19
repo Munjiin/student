@@ -2,7 +2,9 @@ package dao;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -11,12 +13,11 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import domain.BoardVO;
 import domain.PageDTO;
-import domain.QuestionVO;
 
 public class BoardDAO {
 	
 	//QuestionDAO
-		private String preFix =  "mapper.questiondMapper";
+		private String preFix =  "mapper.boardMapper";
 		
 		//MybatisLoader
 		static SqlSessionFactory sqlSessionFactory;
@@ -35,12 +36,21 @@ public class BoardDAO {
 				
 		
 		public List<BoardVO> getList(PageDTO dto) {
+			System.out.println("--------------------------------------------------d");
 			
+			Map<String, Object> paramMap = new HashMap<>();
+			paramMap.put("page",2);
+			paramMap.put("size", 20);
+			
+			System.out.println("--------------------------------------------1");
 			try(SqlSession session = sqlSessionFactory.openSession(true)){
-				return session.selectList(preFix + ".selectPage", dto.getPage());
+				System.out.println("--------------------------------------------2");
+				System.out.println(session.selectList(preFix + ".selectPage", paramMap));
+				return session.selectList(preFix + ".selectPage", paramMap);
 			}catch(Exception e) {
 				e.printStackTrace();
 		}
+			System.out.println("--------------------------------------------3");
 			return null;
 		}
 

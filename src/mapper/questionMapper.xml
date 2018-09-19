@@ -17,12 +17,12 @@ where qno > 0
 and ROWNUM <= (#{page} * #{size}))
 where rn > (#{page}-1) * #{size}
 ]]>
-
 	</select>
 
-<select id="response" resultType="QuestionVO">
-select * from tbl_response where qno = #{qno}
 
+<select id="response" resultType="QuestionVO">
+select reply
+from tbl_response where qno = #{qno}
 </select>
 
 </mapper>

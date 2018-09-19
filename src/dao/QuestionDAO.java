@@ -14,6 +14,7 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
 import dao.BoardDAO;
 
 public class QuestionDAO {
@@ -49,6 +50,17 @@ public class QuestionDAO {
 	}
 
 	//Response
+	public String getResponse() {
+		try (SqlSession session = sqlSessionFactory.openSession(true)) {
+			return session.selectOne(preFix + ".getResponse");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return null;
+	}
+	
 	
 	
 	

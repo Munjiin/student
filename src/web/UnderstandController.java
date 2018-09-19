@@ -9,7 +9,7 @@ import domain.PageDTO;
 import domain.PageMaker;
 import web.util.Converter;
 
-@WebServlet(urlPatterns = "/user/*")
+@WebServlet(urlPatterns = "/user/understand/*")
 public class UnderstandController extends AbstractController{
 
 	UnderstandDAO dao = new UnderstandDAO();

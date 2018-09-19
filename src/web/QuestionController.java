@@ -14,7 +14,7 @@ public class QuestionController extends AbstractController{
 
 	QuestionDAO dao = new QuestionDAO();
 
-	//list
+	//qlist
 	 public String qlistGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 	        PageDTO dto = PageDTO.of()
 	                .setPage(Converter.getInt(req.getParameter("page"), 1))
@@ -29,8 +29,8 @@ public class QuestionController extends AbstractController{
 	        return "qlist";
 	    }
 
-	 //read
-	    public String readGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+	 //response
+	    public String responseGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
 	        String qnoStr = req.getParameter("qno");
 	        int qno = Converter.getInt(qnoStr, -1);
@@ -44,7 +44,7 @@ public class QuestionController extends AbstractController{
 
 	
 
-	        return "read";
+	        return "response";
 	    }
 	   
 

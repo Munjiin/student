@@ -26,7 +26,7 @@ public class UnderstandController extends AbstractController{
 	        PageMaker pageMaker = new PageMaker(total, dto);
 
 	        req.setAttribute("pageMaker", pageMaker);
-//	        req.setAttribute("list", dao.getList(dto));
+	        req.setAttribute("list", dao.getList(dto));
 
 	        return "list";
 	    }
@@ -51,6 +51,6 @@ public class UnderstandController extends AbstractController{
 	    }
 
 	    public String getBasic() {
-	        return "/user/";
+	        return "/user/understand/";
 	    }
 }

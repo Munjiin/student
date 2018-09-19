@@ -30,7 +30,7 @@ public class UnderstandDAO {
 	
 	
 	//BoardDAO
-	private String preFix =  "org.gonnys.mapper.boardMapper";		
+	private String preFix =  "mapper.understandMapper";		
 	
 	public void create(BoardDAO vo) {
 		

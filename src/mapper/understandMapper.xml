@@ -5,33 +5,22 @@
 <mapper namespace="org.gonnys.mapper.boardMapper">
 
 
-	<delete id="remove">
-		delete from tbl_board where bno = #{bno}
-	</delete>
-
-	<insert id="create" parameterType="BoardVO">
-		insert into tbl_board (bno, title, content, writer)
-		values (seq_board.nextval, #{title}, #{content}, #{writer})
-	</insert>
-
-
-	<select id="select10" resultType="BoardVO">
+	<select id="qlist" resultType="QuestionVO">
 <![CDATA[  
-select * from tbl_board
-where rownum <= 10
-order by bno desc
+select *
+from
+(select
+/*+ INDEX_DESC (tbl_ pk_question) */
+ROWNUM rn, qno, question, regdate, sysdate-(regdate + ( 1/ (24 * 60) * limittime))time
+from TBL_question
+where qno > 0
+and ROWNUM <= (#{page} * #{size}))
+where rn > (#{page}-1) * #{size}
 ]]>
+
 	</select>
 
-	<select id="selectPage" resultType="BoardVO">
 
-<![CDATA[
-   select rownum bno, title, content, writer, regdate, updatedate, viewcnt
-   from(
-   select rownum rn, bno, title, content, writer, regdate, updatedate, viewcnt from tbl_board where rownum <= ( #{page} * #{size}) order by bno desc)
-   where rn > (#{page}-1)* #{size}
-]]>
-	</select>
 
 
 </mapper>

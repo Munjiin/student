@@ -21,6 +21,4 @@ where rn > (#{page}-1) * #{size}
 	</select>
 
 
-
-
 </mapper>

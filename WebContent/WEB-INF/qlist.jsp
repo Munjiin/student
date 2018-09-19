@@ -44,33 +44,27 @@
                     <table width="100%" class="table table-striped table-bordered table-hover" >
                         <thead>
                         <tr>
-                            <th>BNO</th>
-                            <th>TITLE</th>
-                            <th>WRITER</th>
-                            <th>REG DATE</th>
-                            <th>UPDATE DATE</th>
+                            <th>QNO</th>
+                            <th>QUESTION</th>
+                          <th>REG DATE</th>
+                            <th>TIME</th>
 
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="board" items="${list}" >
+                        <c:forEach var="question" items="${qlist}" >
                             <tr class="odd gradeX">
-                                <td>${board.bno}</td>
-                                <td><a href="read?bno=${board.bno}&page=${pageMaker.pageDTO.page}">${board.title}<span class="badge">${board.viewcnt}</span></a></td>
-                                <td>${board.writer}</td>
-                                <td>${board.regdate}</td>
-                                <td>${board.updatedate}</td>
+                                <td>${question.qno}</td>
+                                <td><a href="read?bno=${question.bno}&page=${pageMaker.pageDTO.page}">${question.question}<span class="badge"></span></a></td>
+                                <td>${question.regdate}</td>
+                                <td>${question.time}</td>
 
                             </tr>
                         </c:forEach>
                         </tbody>
                     </table>
 
-                    <p class="text-center">
-                    <a action = "write">
-                            <button type="button" class="btn btn-primary btn-lg btn-block">글쓰기</button>
-                        </a></p>
-
+                  
                     <!-- /.table-responsive -->
                     <div class="well">
                         <ul class="pagination">

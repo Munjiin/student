@@ -17,7 +17,7 @@ public class QuestionController extends AbstractController{
 	//list
 	 public String qlistGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 	
-
+		 	System.out.println("-------------------------------------1");
 	        PageDTO dto = PageDTO.of()
 	                .setPage(Converter.getInt(req.getParameter("page"), 1))
 	                .setSize(Converter.getInt(req.getParameter("size"), 10));
@@ -27,6 +27,7 @@ public class QuestionController extends AbstractController{
 
 	        req.setAttribute("pageMaker", pageMaker);
 	        req.setAttribute("qlist", dao.getList(dto));
+	        System.out.println("¸®½ºÆ®: " + dao.getList(dto));
 
 	        return "qlist";
 	    }

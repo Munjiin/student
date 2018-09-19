@@ -51,6 +51,6 @@ public class QuestionController extends AbstractController{
 	    }*/
 
 	    public String getBasic() {
-	        return "/student/user/question/";
+	        return "/user/question/";
 	    }
 }

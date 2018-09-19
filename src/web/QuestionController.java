@@ -4,15 +4,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.UnderstandDAO;
+import dao.QuestionDAO;
 import domain.PageDTO;
 import domain.PageMaker;
 import web.util.Converter;
 
-@WebServlet(urlPatterns = "/user/understand/*")
-public class UnderstandController extends AbstractController{
+@WebServlet(urlPatterns = "/user/question/*")
+public class QuestionController extends AbstractController{
 
-	UnderstandDAO dao = new UnderstandDAO();
+	QuestionDAO dao = new QuestionDAO();
 
 	//list
 	 public String listGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -51,6 +51,6 @@ public class UnderstandController extends AbstractController{
 	    }
 
 	    public String getBasic() {
-	        return "/user/understand/";
+	        return "/user/question/";
 	    }
 }

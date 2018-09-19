@@ -13,7 +13,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import dao.BoardDAO;
 
-public class UnderstandDAO {
+public class QuestionDAO {
 	
 	//MybatisLoader
 	static SqlSessionFactory sqlSessionFactory;
@@ -29,10 +29,10 @@ public class UnderstandDAO {
 	}
 	
 	
-	//BoardDAO
+	//QuestionDAO
 	private String preFix =  "mapper.understandMapper";		
 	
-	public void create(BoardDAO vo) {
+	public void create(QuestionDAO vo) {
 		
 		try(SqlSession session = sqlSessionFactory.openSession(true)){
 			session.insert(preFix + ".crate", vo);

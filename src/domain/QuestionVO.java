@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class QuestionVO {
-	private int qno, limittime, mno, reply;
+	private int qno, limittime, mno, reply, percent;
 	private String question, cmt, name, id;
 	private Date regdate, replydate;
 	private Double time;

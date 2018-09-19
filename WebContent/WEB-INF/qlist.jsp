@@ -55,7 +55,10 @@
                         <c:forEach var="question" items="${qlist}" >
                             <tr class="odd gradeX">
                                 <td>${question.qno}</td>
-                                <td>${question.question}</td>
+                                <td>
+                                <a href ="response?page=${pageMaker.pageDTO.page}&qno=${question.qno}&mno=${question.mno}">
+                                ${question.question}
+                                </a></td>
                                 <td>${question.regdate}</td>
                                 <td>${question.time>0 ? "진행중":"종료"}</td>
 

@@ -19,6 +19,7 @@ import dao.BoardDAO;
 
 public class QuestionDAO {
 	private String preFix =  "mapper.questionMapper";
+	Map<String, Object> paramMap = new HashMap<>();
 	
 	//MybatisLoader
 	static SqlSessionFactory sqlSessionFactory;
@@ -36,7 +37,7 @@ public class QuestionDAO {
 		
 	//Question
 	public List<QuestionVO> getList(PageDTO dto) {
-		Map<String, Object> paramMap = new HashMap<>();
+		
 		paramMap.put("page", dto.getPage());
 		paramMap.put("size", dto.getSize());
 		
@@ -50,14 +51,22 @@ public class QuestionDAO {
 	}
 
 	//Response
-	public String getResponse() {
+	public List<QuestionVO> getResponse(int qno, int mno) {
+		
+		paramMap.put("qno", qno);
+		paramMap.put("mno", mno);
+		System.out.println("----------------------------------------qno"+qno);
+		System.out.println("----------------------------------------mno"+mno);
+		
 		try (SqlSession session = sqlSessionFactory.openSession(true)) {
-			return session.selectOne(preFix + ".getResponse");
+			System.out.println("--------------------------------------------1");
+			return session.selectList(preFix + ".response", paramMap);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
+		System.out.println("--------------------------------------------2");
 		return null;
 	}
 	

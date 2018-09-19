@@ -17,40 +17,34 @@
 				<h3 class="page-header">이해...했니?</h3>
 			</div>
 		</div>
+		
 		<!-- /.row -->
 		<div class="row">
 			<div class="col-lg-4">
+			<c:forEach var="response" items="${response}" >
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<div style="height: auto; max-width: 1080px; text-align: right;">
-                            ${question.qno}. ${question.question}
-                    
-						</div>
+							${response.qno}. ${response.question}</div>
 					</div>
 				</div>
 				<div class="panel-body">
 					<div class="panel panel-default">
 						<div style="height: 350px; max-width: 1080px; text-align: left">
 							<br>${response.reply}
-						</div>
-					</div>
-					<div class="panel-footer">
-						<div style="height: auto; max-width: 1080px; text-align: right;">
-
-
-							<%--<form action="/modify">--%>
-							<a href="modify?bno=${board.bno}&page=${page}"> <%--<input type="hidden" name="bno" value="${board.bno}">--%>
-								<%--<input type="hidden" name="page" value="${pageMaker.pageDTO.page}">--%>
-								<button class="btn btn-outline btn-primary btn-sm">수정
-									혹은 삭제</button> <%--</form>--%></a> <a href="list?page=${page}"><button
-									type="button" class="btn btn-outline btn-primary btn-sm">
-									목록보기</button></a>
+							<br>${response.percent}
 						</div>
 					</div>
 				</div>
+				</c:forEach>
 			</div>
 		</div>
+		
 	</div>
 </table>
+							<a href="response?page=${page}">
+
+								<button type="button" class="btn btn-outline btn-primary btn-sm">목록보기</button>
+							</a>
 
 <%@ include file="includes/footer.jsp"%>

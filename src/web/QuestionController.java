@@ -16,8 +16,6 @@ public class QuestionController extends AbstractController{
 
 	//list
 	 public String qlistGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-	
-		 	System.out.println("-------------------------------------1");
 	        PageDTO dto = PageDTO.of()
 	                .setPage(Converter.getInt(req.getParameter("page"), 1))
 	                .setSize(Converter.getInt(req.getParameter("size"), 10));
@@ -27,29 +25,28 @@ public class QuestionController extends AbstractController{
 
 	        req.setAttribute("pageMaker", pageMaker);
 	        req.setAttribute("qlist", dao.getList(dto));
-	        System.out.println("¸®½ºÆ®: " + dao.getList(dto));
 
 	        return "qlist";
 	    }
 
 	 //read
-	 
-/*	    public String readGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+	    public String readGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
-	        String bnoStr = req.getParameter("bno");
-	        int bno = Converter.getInt(bnoStr, -1);
+	        String qnoStr = req.getParameter("qno");
+	        int qno = Converter.getInt(qnoStr, -1);
 	        String pageStr = req.getParameter("page");
 	        int page = Converter.getInt(pageStr, -1);
 	        boolean updateable = false;
 
-	        if (bno == -1) {
+	        if (qno == -1) {
 	            throw new Exception("invalid data");
 	        }
 
 	
 
 	        return "read";
-	    }*/
+	    }
+	   
 
 	    public String getBasic() {
 	        return "/user/question/";

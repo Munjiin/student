@@ -17,8 +17,6 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import dao.BoardDAO;
 
 public class QuestionDAO {
-	
-	//QuestionDAO
 	private String preFix =  "mapper.questionMapper";
 	
 	//MybatisLoader
@@ -34,9 +32,8 @@ public class QuestionDAO {
 	}
 	}
 	
-	
-			
-	
+		
+	//Question
 	public List<QuestionVO> getList(PageDTO dto) {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("page", dto.getPage());
@@ -44,16 +41,14 @@ public class QuestionDAO {
 		
 		try(SqlSession session = sqlSessionFactory.openSession(true)){
 			
-			System.out.println("--------------------------------------2");
-			System.out.println(session.selectList(preFix + ".qlist", paramMap));
 			return session.selectList(preFix + ".qlist", paramMap);
 		}catch(Exception e) {
 			e.printStackTrace();
 	}
-		System.out.println("--------------------------------------3");
 		return null;
 	}
 
+	//Response
 	
 	
 	

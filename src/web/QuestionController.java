@@ -15,7 +15,7 @@ public class QuestionController extends AbstractController{
 	QuestionDAO dao = new QuestionDAO();
 
 	//list
-	 public String listGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+	 public String qlistGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 	
 
 	        PageDTO dto = PageDTO.of()
@@ -26,14 +26,14 @@ public class QuestionController extends AbstractController{
 	        PageMaker pageMaker = new PageMaker(total, dto);
 
 	        req.setAttribute("pageMaker", pageMaker);
-	        req.setAttribute("list", dao.getList(dto));
+	        req.setAttribute("qlist", dao.getList(dto));
 
-	        return "list";
+	        return "qlist";
 	    }
 
 	 //read
 	 
-	    public String readGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+/*	    public String readGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
 	        String bnoStr = req.getParameter("bno");
 	        int bno = Converter.getInt(bnoStr, -1);
@@ -48,9 +48,9 @@ public class QuestionController extends AbstractController{
 	
 
 	        return "read";
-	    }
+	    }*/
 
 	    public String getBasic() {
-	        return "/user/question/";
+	        return "/student/user/question/";
 	    }
 }

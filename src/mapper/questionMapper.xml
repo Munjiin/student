@@ -10,7 +10,7 @@
 select *
 from
 (select
-/*+ INDEX_DESC (tbl_ pk_question) */
+/*+ INDEX_DESC (tbl_question pk_question) */
 ROWNUM rn, qno, question, regdate, (regdate + ( 1/ (24 * 60) * limittime))-sysdate time
 from TBL_question
 where qno > 0

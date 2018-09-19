@@ -6,6 +6,7 @@ import java.util.List;
 
 import domain.BoardVO;
 import domain.PageDTO;
+import domain.QuestionVO;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -14,6 +15,9 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import dao.BoardDAO;
 
 public class QuestionDAO {
+	
+	//QuestionDAO
+	private String preFix =  "mapper.questiondMapper";
 	
 	//MybatisLoader
 	static SqlSessionFactory sqlSessionFactory;
@@ -29,16 +33,16 @@ public class QuestionDAO {
 	}
 	
 	
-	//QuestionDAO
-	private String preFix =  "mapper.understandMapper";		
+			
 	
-	public void create(QuestionDAO vo) {
+	public List<QuestionVO> getList(PageDTO dto) {
 		
 		try(SqlSession session = sqlSessionFactory.openSession(true)){
-			session.insert(preFix + ".crate", vo);
+			return session.selectList(preFix + ".qlist", dto.getPage());
 		}catch(Exception e) {
 			e.printStackTrace();
 	}
+		return null;
 	}
 
 	

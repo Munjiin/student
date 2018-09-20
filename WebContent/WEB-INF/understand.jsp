@@ -20,7 +20,6 @@
 	<div class="row">
 		<div class="col-lg-12">
 
-
 			<c:forEach var="question" items="${question}" >
 			<p class="panel panel-default">
 			<div class="panel-heading">Q. ${question.question}</div>
@@ -33,10 +32,10 @@
 
 							<label class="radio-inline"> <input type="radio"
 								name="reply" id="optionsRadiosInline1"
-								value="1" checked>이해했서요!
+								value="1" checked>이해했어요
 							</label> <label class="radio-inline"> <input type="radio"
 								name="reply" id="optionsRadiosInline2"
-								value="0">이해못해써요ㅠㅠ
+								value="0">이해못했어요
 							</label>
 
 					
@@ -44,15 +43,13 @@
 								<label>Comment</label> <input name="cmt">
 							</div>
 
-
 							<button>보내기</button>
 						</form>
 
 					</div>
 				</div>
-				<!-- /.panel-body -->
 			</div>
-
+</div>
 
 
 		<%@ include file="includes/footer.jsp"%>

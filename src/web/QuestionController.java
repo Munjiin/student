@@ -44,9 +44,7 @@ public class QuestionController extends AbstractController{
 	            throw new Exception("invalid data");
 	        }
 
-	        req.setAttribute("response", dao.getResponse(48, 1));	
-	        System.out.println("-----------------"+dao.getResponse(48, 1));
-
+	        req.setAttribute("response", dao.getResponse(qno, 1));	
 	        return "response";
 	    }
 	   
@@ -74,7 +72,7 @@ public class QuestionController extends AbstractController{
 	    public String understandPOST(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
 	    	req.setCharacterEncoding("UTF-8");
-	    	System.out.println("------------------------------------1");
+
 	        String qnoStr = req.getParameter("qno");
 	        int qno = Converter.getInt(qnoStr, -1);
 	        String pageStr = req.getParameter("page");
@@ -85,7 +83,7 @@ public class QuestionController extends AbstractController{
 	        
 	        
 	        dao.getUnderstandSend(qno,1,reply,cmt);
-	        System.out.println("------------------------------------2");
+
 	 
 	        return "redirect:/user/question/qlist";
 	    }

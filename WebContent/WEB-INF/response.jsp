@@ -27,15 +27,17 @@
 				<c:forEach var="response" items="${response}">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<div style="height: auto; max-width: auto; text-align: right;">
+							<div style="height: auto; max-width: auto; text-align: center;">
 								${response.qno}. ${response.question}</div>
 						</div>
 					</div>
 					<div class="panel-body">
 						<div class="panel panel-default">
-							<div style="height: 350px; max-width: auto; text-align: left">
-								<br>내가 쓴 답: ${response.reply==1?"이해해써요":"이해못해써요"} <br>결과
-								: ${response.percent}%
+							<div style="height: 350px; max-width: auto; text-align: center">
+								<br>내가 쓴 답: 
+								${response.reply==1?"이해해써요":"이해못해써요"}
+								 <br>결과
+							: ${response.percent}%
 							</div>
 						</div>
 					</div>

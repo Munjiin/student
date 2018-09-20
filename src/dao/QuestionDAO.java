@@ -70,8 +70,38 @@ public class QuestionDAO {
 		return null;
 	}
 	
+	//UnderstandRead
+	public List<QuestionVO> getUnderstandRead(int qno) {
+		
+		paramMap.put("qno", qno);
+		
+		try (SqlSession session = sqlSessionFactory.openSession(true)) {
+			return session.selectList(preFix + ".understandRead", paramMap);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return null;
+	}
 	
-	
+	//UnderstandSend
+	public void getUnderstandSend(int qno, int mno, int reply, String cmt) {
+		
+		QuestionVO vo = new QuestionVO();
+		vo.setQno(qno);
+		vo.setMno(mno);
+		vo.setReply(reply);
+		vo.setCmt(cmt);
+		
+		try (SqlSession session = sqlSessionFactory.openSession(true)) {
+			session.insert(preFix + ".understandSend", vo);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+	}	
 	
 	
 	

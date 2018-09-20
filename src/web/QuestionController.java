@@ -28,7 +28,7 @@ public class QuestionController extends AbstractController{
 
 	        return "qlist";
 	    }
-
+	 
 	 //response
 	    public String responseGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
@@ -37,7 +37,6 @@ public class QuestionController extends AbstractController{
 	        
 	        String pageStr = req.getParameter("page");
 	        int page = Converter.getInt(pageStr, -1);
-	        
 	        int mno = Converter.getInt((req.getParameter("mno")),-1);
 	        
 
@@ -45,14 +44,54 @@ public class QuestionController extends AbstractController{
 	            throw new Exception("invalid data");
 	        }
 
-	        req.setAttribute("response", dao.getResponse(48, 1));	
-	        System.out.println("-----------------"+dao.getResponse(48, 1));
-
+	        req.setAttribute("response", dao.getResponse(qno, 1));	
 	        return "response";
 	    }
 	   
+	    
+	    
+	    //understandRead
+	    
+	    public String understandGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
+	        String qnoStr = req.getParameter("qno");
+	        int qno = Converter.getInt(qnoStr, -1);
+	        int mno = Converter.getInt((req.getParameter("mno")),-1);
+	        String pageStr = req.getParameter("page");
+	        int page = Converter.getInt(pageStr, -1);
+	        
+	        req.setAttribute("question", dao.getUnderstandRead(qno));
+	        
+
+	        return "understand";
+	    }
+	    
+	    
+    //understandSend
+	    
+	    public String understandPOST(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+
+	    	req.setCharacterEncoding("UTF-8");
+
+	        String qnoStr = req.getParameter("qno");
+	        int qno = Converter.getInt(qnoStr, -1);
+	        String pageStr = req.getParameter("page");
+	        int page = Converter.getInt(pageStr, -1);
+	        int mno = Converter.getInt((req.getParameter("mno")),-1);
+	        int reply = Converter.getInt(req.getParameter("reply"),-1);
+	        String cmt = req.getParameter("cmt");
+	        
+	        
+	        dao.getUnderstandSend(qno,1,reply,cmt);
+
+	 
+	        return "redirect:/user/question/qlist";
+	    }
+	    
+	    
+	   
 	    public String getBasic() {
 	        return "/user/question/";
 	    }
+	    
 }

@@ -39,13 +39,25 @@ public class QuestionController extends AbstractController{
 	        int page = Converter.getInt(pageStr, -1);
 	        int mno = Converter.getInt((req.getParameter("mno")),-1);
 	        
+//	        Integer reply = dao.getReplyCheck(qno, mno);
+//	        Double time = dao.getResponse(qno,1).get(0).getTime();
+	        
+	        
+//	        if(reply != null) {
+//	        	req.setAttribute("response", dao.getResponse(qno, 1));	
+//	        	return "response";
+//	        }else {
+//	        	if(time>0) {
+//	        		return "understand";
+//	        	}else {
+//	        		return "redirect:/user/question/qlist";
+//	        	}
+//	        	
+//	       
+//	        }
+	        req.setAttribute("response", dao.getResponse(qno, 1));
+	    return "response";
 
-	        if (qno == -1) {
-	            throw new Exception("invalid data");
-	        }
-
-	        req.setAttribute("response", dao.getResponse(qno, 1));	
-	        return "response";
 	    }
 	   
 	    

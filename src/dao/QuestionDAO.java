@@ -103,6 +103,21 @@ public class QuestionDAO {
 		}
 	}	
 	
+	//replyCheck
+		public Integer getReplyCheck(int qno, int mno) {
+		
+			paramMap.put("qno", qno);
+			paramMap.put("mno", mno);
+			
+			try (SqlSession session = sqlSessionFactory.openSession(true)) {
+				return session.selectOne(preFix + ".replyCheck", paramMap);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+
+			}
+			return -1;
+		}
 	
 	
 	

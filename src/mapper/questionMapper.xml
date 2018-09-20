@@ -12,12 +12,14 @@ from
 (select
 /*+ INDEX_DESC (tbl_question pk_question) */
 ROWNUM rn, qno, question, regdate, (regdate + ( 1/ (24 * 60) * limittime))-sysdate time
-from TBL_question
+from TBL_question 
 where qno > 0
 and ROWNUM <= (#{page} * #{size}))
 where rn > (#{page}-1) * #{size}
 ]]>
 	</select>
+	
+	
 
 	<!-- response -->
 
@@ -37,6 +39,14 @@ where rn > (#{page}-1) * #{size}
 		where
 		rm.qno = q.qno and q.qno = #{qno})
 		where mno= #{mno}
+	</select>
+
+<!-- replycheck -->
+
+<select id="replyCheck" resultType="QuestionVO">
+		select reply
+		from tbl_response
+		where qno = #{qno} and mno = #{mno}
 	</select>
 
 

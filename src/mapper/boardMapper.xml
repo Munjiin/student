@@ -5,25 +5,50 @@
 <mapper namespace="mapper.boardMapper">
 
 
+
+
+
 	<delete id="remove">
 		delete from tbl_board where bno = #{bno}
 	</delete>
+	
+	<update id="modify">
+	<![CDATA[ 
+	update tbl_qboard set title =#{title}, cnt =#{cnt} 
+	where bno =#{bno}
+	]]>
+	</update>
+
+
 
 	<insert id="create" parameterType="BoardVO">
-		insert into tbl_board (bno,
-		title, content, writer)
-		values (seq_board.nextval, #{title},
-		#{content}, #{writer})
+		insert into tbl_qboard qb
+		(mno, bno, title, cnt)
+		values((select mno from tbl_qmember where
+		name=#{name}),seq_qboard.nextval,#{title},#{cnt})
 	</insert>
 
 
-	<select id="select10" resultType="BoardVO">
+	<select id="select10"  resultType="BoardVO">
 <![CDATA[  
 select * from tbl_qboard
 where rownum <= 10
-order by bno desc
+order by #{bno} desc
 ]]>
 	</select>
+	
+	
+	
+		<select id="read"  resultType="BoardVO">
+<![CDATA[  
+select *
+from tbl_qboard qb,tbl_qmember qm
+where qm.mno=qb.mno and qb.bno=#{bno} 
+]]>
+	</select>
+	
+	
+	
 
 	<select id="selectPage" resultType="BoardVO">
 <![CDATA[
@@ -38,6 +63,8 @@ where rn >(#{page}-1)*#{size}
 
 ]]>
 	</select>
+	
+	
 
 
 </mapper>

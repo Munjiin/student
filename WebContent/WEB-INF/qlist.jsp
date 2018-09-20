@@ -72,7 +72,15 @@
                         </tbody>
                     </table>
 
+<<<<<<< HEAD
+                    <p class="text-center">
+                    <a href = "write">
+                            <button  class="btn btn-primary btn-lg btn-block">글쓰기</button>
+                        </a></p>
+
+=======
                   
+>>>>>>> refs/remotes/origin/master
                     <!-- /.table-responsive -->
                     <div class="well">
                         <ul class="pagination">

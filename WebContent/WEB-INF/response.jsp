@@ -24,7 +24,7 @@
             <div class="panel panel-default">
                <div class="panel-heading">
                   <div style="height: auto; max-width: 1080px; text-align: right;">
-                     ${question.qno}. ${question.question}</div>
+                     ${question.get(0).qno}. ${question.get(0).question}</div>
                </div>
             </div>
             

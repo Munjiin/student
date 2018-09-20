@@ -118,6 +118,18 @@ public class QuestionDAO {
 			}
 			return -1;
 		}
+		
+		//Question
+		public List<QuestionVO> getQuestion(int qno) {
+
+			try(SqlSession session = sqlSessionFactory.openSession(true)){
+				
+				return session.selectList(preFix + ".getQuestion", qno);
+			}catch(Exception e) {
+				e.printStackTrace();
+		}
+			return null;
+		}
 	
 	
 	

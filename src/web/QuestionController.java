@@ -55,6 +55,7 @@ public class QuestionController extends AbstractController{
 //	        	
 //	       
 //	        }
+	        req.setAttribute("question", dao.getQuestion(qno));
 	        req.setAttribute("response", dao.getResponse(qno, 1));
 	    return "response";
 

@@ -50,6 +50,14 @@ where rn > (#{page}-1) * #{size}
 	</select>
 
 
+<!-- getQuestion -->
+
+<select id="getQuestion" resultType="QuestionVO">
+		select qno, question
+		from tbl_question
+		where qno = #{qno}
+	</select>
+
 	<!-- understand(read) -->
 
 	<select id="understandRead" resultType="QuestionVO">

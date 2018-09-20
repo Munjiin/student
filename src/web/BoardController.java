@@ -26,7 +26,8 @@ import web.util.Converter;
 @WebServlet(urlPatterns = "/user/board/*")
 public class BoardController extends AbstractController {
 
-	BoardDAO dao = new BoardDAO();
+	BoardDAO dao = new BoardDAO(); 
+	Converter converter = new Converter();
 
 	// list
 	public String listGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -82,13 +83,53 @@ public class BoardController extends AbstractController {
 	public String readGET(HttpServletRequest req, HttpServletResponse resp) throws Exception{
         System.out.println("readGET...........................");
         
-        String bno =req.getParameter("bno");
+        String bnoStr = req.getParameter("bno");
+        int bno = Converter.getInt(bnoStr,-1);
+        
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~bno"+bno);
        
            
         req.setAttribute("board",dao.getBoard(bno));
         return "read";
 	}
+	
+	
+	 public String modifyGET(HttpServletRequest req, HttpServletResponse resp) throws Exception{
+	        System.out.println("modify..............................");
+
+	        
+	        String bnoStr = req.getParameter("bno");
+	        int bno = Converter.getInt(bnoStr,-1);
+	        
+	        req.setAttribute("board",dao.getBoard(bno));
+
+	        return "modify";
+	    }
+
+	    public void modifyPOST(HttpServletRequest req, HttpServletResponse resp) throws Exception{
+
+	        req.setCharacterEncoding("UTF-8");
+
+	        System.out.println("modify post..............................");
+	       
+
+	        BoardVO vo = new BoardVO();
+	        int bno = converter.getInt(req.getParameter("bno"),-1);
+
+	        vo.setBno(bno);
+	        vo.setTitle(req.getParameter("title"));
+	        vo.setCnt(req.getParameter("cnt"));
+
+	        dao.modifyContent(vo);
+
+	        req.setAttribute("board",dao.getBoard(bno));
+
+	        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/read.jsp");
+	        dispatcher.forward(req,resp);
+	    }
+	
+	
+	
 
 	public String getBasic() {
 		return "/user/board/";

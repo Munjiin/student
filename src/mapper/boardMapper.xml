@@ -11,6 +11,13 @@
 	<delete id="remove">
 		delete from tbl_board where bno = #{bno}
 	</delete>
+	
+	<update id="modify">
+	<![CDATA[ 
+	update tbl_qboard set title =#{title}, cnt =#{cnt} 
+	where bno =#{bno}
+	]]>
+	</update>
 
 
 
@@ -56,6 +63,8 @@ where rn >(#{page}-1)*#{size}
 
 ]]>
 	</select>
+	
+	
 
 
 </mapper>

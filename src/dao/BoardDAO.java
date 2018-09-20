@@ -73,26 +73,14 @@ public class BoardDAO {
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	
-	 public BoardVO getBoard(String bno) throws Exception{
+	 public BoardVO getBoard(int bno) throws Exception{
 		 
 		 
 		  BoardVO vo = null;
-
-//	      try (SqlSession session = MyBatisLoader.sqlSessionFactory.openSession(true)) {
-//
-//	         vo = session.selectOne(prefix + ".read", bno);
-//	         
-//	      } catch (Exception e) {
-//	         e.printStackTrace();
-//	      }
-//	      return vo;
-//	   }
-		 
-
-			
+	
 			try (SqlSession session = sqlSessionFactory.openSession(true)) {
 				
-				//System.out.println(session.selectOne(preFix + ".read", bno));
+				
 				vo= session.selectOne(preFix + ".read", bno);
 				
 			} catch (Exception e) {
@@ -100,53 +88,31 @@ public class BoardDAO {
 			}
 			
 			return vo;
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-//		 
-//		 
-//		 
-//		 
-//		 
-//		 
-//	        BoardVO vo = new BoardVO();
-//
-//	        new QueryExecutor() {
-//	            @Override
-//	            public void doJob() throws Exception {
-//	                if(updateable){
-//	                  
-//	                    stmt.setInt(1,bno);
-//	                    stmt.executeUpdate();
-//	                    stmt.close();
-//	                }
-//	                stmt = con.prepareStatement(READ);
-//	                stmt.setInt(1,bno);
-//	                rs = stmt.executeQuery();
-//	                while(rs.next()){
-//	                    vo.setBno(rs.getInt("bno"));
-//	                    vo.setTitle(rs.getString("title"));
-//	                    vo.setCnt(rs.getString("cnt"));
-//	                   
-//	                    vo.setName(rs.getString("name"));
-//	                    vo.setRegdate(rs.getDate("regdate"));
-//	                    vo.setUpdatedate(rs.getDate("updatedate"));
-//
-//	                }
-//	            }
-//	        }.executeAll();
 
 	        
 	    }
+	 
+	 public void modifyContent(final BoardVO vo){
+
+	        
+
+		 Map<String, Object> paramMap = new HashMap<>();
+			
+			paramMap.put("bno", vo.getBno());
+			paramMap.put("title", vo.getTitle());
+			paramMap.put("cnt", vo.getCnt());
+
+			try (SqlSession session = sqlSessionFactory.openSession(true)) {
+				session.selectList(preFix + ".modify", paramMap);
+
+				//return session.selectList(preFix + ".create", paramMap);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+	 
+	 
+	 
 
 }

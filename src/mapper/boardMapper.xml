@@ -9,11 +9,11 @@
 		delete from tbl_board where bno = #{bno}
 	</delete>
 
+	
+	
 	<insert id="create" parameterType="BoardVO">
-		insert into tbl_board (bno,
-		title, content, writer)
-		values (seq_board.nextval, #{title},
-		#{content}, #{writer})
+		insert into tbl_qboard qb (mno, bno, title, cnt)
+		values((select mno from tbl_qmember where name=#{name}),seq_qboard.nextval,#{title},#{cnt})
 	</insert>
 
 

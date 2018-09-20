@@ -20,7 +20,8 @@ public class QuestionController extends AbstractController{
 	                .setPage(Converter.getInt(req.getParameter("page"), 1))
 	                .setSize(Converter.getInt(req.getParameter("size"), 10));
 
-	        int total = 320;
+	        int total = dao.getPage();
+	        System.out.println("page total: " + total);
 	        PageMaker pageMaker = new PageMaker(total, dto);
 
 	        req.setAttribute("pageMaker", pageMaker);

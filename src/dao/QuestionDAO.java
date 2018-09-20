@@ -131,6 +131,19 @@ public class QuestionDAO {
 			return null;
 		}
 	
+		
+		//totalpage
+		public int getPage() {
+
+			try(SqlSession session = sqlSessionFactory.openSession(true)){
+				
+				return session.selectOne(preFix + ".getPage");
+			}catch(Exception e) {
+				e.printStackTrace();
+		}
+			return 0;
+		}
+	
 	
 	
 }

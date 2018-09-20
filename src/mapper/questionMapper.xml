@@ -57,6 +57,13 @@ where rn > (#{page}-1) * #{size}
 		from tbl_question
 		where qno = #{qno}
 	</select>
+	
+	<!-- getPage-->
+
+<select id="getPage" resultType="int">
+		select count(*)
+		from tbl_question
+	</select>
 
 	<!-- understand(read) -->
 

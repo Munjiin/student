@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.questionMapper">
 
-
+	<!-- qlist -->
 	<select id="qlist" resultType="QuestionVO">
 <![CDATA[  
 select *
@@ -19,22 +19,48 @@ where rn > (#{page}-1) * #{size}
 ]]>
 	</select>
 
+	<!-- response -->
 
 	<select id="response" resultType="QuestionVO">
-select question, mno, qno, reply, name,  percent
-from
-(select
-question, mno, q.qno, reply, name, (sum(reply) over())/(count(*) over()) * 100 percent
-from
-(select
-qno,r.mno,reply,cmt,name
-from
-tbl_response r, tbl_qmember m
-where
-r.mno = m.mno)rm, tbl_question q
-where
-rm.qno = q.qno and q.qno = #{qno})
-where mno= #{mno}
+		select question, mno, qno, reply, name, percent
+		from
+		(select
+		question, mno, q.qno, reply, name, (sum(reply) over())/(count(*) over()) * 100
+		percent
+		from
+		(select
+		qno,r.mno,reply,cmt,name
+		from
+		tbl_response r, tbl_qmember m
+		where
+		r.mno = m.mno)rm, tbl_question q
+		where
+		rm.qno = q.qno and q.qno = #{qno})
+		where mno= #{mno}
 	</select>
+
+
+	<!-- understand(read) -->
+
+	<select id="understandRead" resultType="QuestionVO">
+		select
+		qno, question
+		from
+		tbl_question
+		where
+		qno = #{qno}
+	</select>
+
+
+	<!-- understand(send) -->
+	<insert id="understandSend" parameterType="QuestionVO">
+		insert into
+		tbl_response
+		(qno,mno, reply,cmt)
+		values
+		(#{qno},#{mno},#{reply},#{cmt})
+	</insert>
+
+
 
 </mapper>

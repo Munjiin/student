@@ -60,7 +60,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">가익'있'는 가익팀</a>
+            <a class="navbar-brand" href="../../index.jsp">가익'있'는 가익팀</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -289,38 +289,13 @@
                     </li>
                     <!-- 메뉴리스트 1번 start-->
                     <li>
-                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i>How to 가익'있'는 가익?</a>
+                        <a href="/user/question/qlist"><i class="fa fa-dashboard fa-fw"></i>Question?</a>
                         <!-- 메뉴리스트 1번 end -->
 
-                        <!-- 메뉴리스트 2번 start -->
                     <li>
-                        <a href="#"><i class="fa fa-sitemap fa-fw"></i> 팀원 소개<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="#">김가익</a>
-                            </li>
-                            <li>
-                                <a href="#">문지인</a>
-                            </li>
-                            <li>
-                                <a href="#">박가영</a>
-                            </li>
-                            <li>
-                                <a href="#">박고은</a>
-                            </li>
-                            <li>
-                                <a href="#">추연훈</a>
-                            </li>
-                        </ul>
+                        <a href="/user/board/list"><i class="fa fa-table fa-fw"></i>질문게시판</a>
                     </li>
-                    <!-- 메뉴리스트 2번 end-->
-                    </li>
-                    <li>
-                        <a href="/list"><i class="fa fa-table fa-fw"></i>자유게시판</a>
-                    </li>
-                    <li>
-                        <a href="forms.html"><i class="fa fa-edit fa-fw"></i>프로젝트</a>
-                    </li>
+                    
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->

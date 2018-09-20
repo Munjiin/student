@@ -13,7 +13,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Tables</h1>
+            <h1 class="page-header">질문게시판</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -31,13 +31,14 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    DataTables Advanced Tables
+                    한꺼번에
                     <select onchange="change(this)">
                         <option value="10" ${pageMaker.pageDTO.size == 10?"selected":""}>10</option>
                         <option value="20"${pageMaker.pageDTO.size == 20?"selected":""}>20</option>
                         <option value="50"${pageMaker.pageDTO.size == 50?"selected":""}>50</option>
                         <option value="100"${pageMaker.pageDTO.size == 100?"selected":""}>100</option>
                     </select>
+                    개 리스트 보기
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">

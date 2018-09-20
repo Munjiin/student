@@ -23,7 +23,7 @@
 
             var sizeValue = obj.options[obj.selectedIndex].value;
             console.log(sizeValue);
-            self.location = "list?page=1&size=" + sizeValue;
+            self.location = "qlist?page=1&size=" + sizeValue;
         }
     </script>
     <!-- /.row -->

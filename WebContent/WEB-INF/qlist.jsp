@@ -44,47 +44,52 @@
                     <table width="100%" class="table table-striped table-bordered table-hover" >
                         <thead>
                         <tr>
-                            <th>BNO</th>
-                            <th>TITLE</th>
-                            <th>WRITER</th>
-                            <th>REG DATE</th>
-                            <th>UPDATE DATE</th>
+                            <th>QNO</th>
+                            <th>QUESTION</th>
+                          <th>REG DATE</th>
+                            <th>TIME</th>
 
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="board" items="${list}" >
+                        <c:forEach var="question" items="${qlist}" >
                             <tr class="odd gradeX">
-                                <td>${board.bno}</td>
-                                <td><a href="read?bno=${board.bno}&page=${pageMaker.pageDTO.page}">${board.title}<span class="badge">${board.viewcnt}</span></a></td>
-                                <td>${board.writer}</td>
-                                <td>${board.regdate}</td>
-                                <td>${board.updatedate}</td>
+                                <td>${question.qno}</td>
+                                <td>
+                                <a href ="response?page=${pageMaker.pageDTO.page}&qno=${question.qno}&mno=${question.mno}">
+                                ${question.question}
+                                </a></td>
+                                <td>${question.regdate}</td>
+                                <td>${question.time>0 ? "진행중":"종료"}</td>
 
                             </tr>
                         </c:forEach>
                         </tbody>
                     </table>
 
+<<<<<<< HEAD
                     <p class="text-center">
                     <a href = "write">
                             <button  class="btn btn-primary btn-lg btn-block">글쓰기</button>
                         </a></p>
 
+=======
+                  
+>>>>>>> refs/remotes/origin/master
                     <!-- /.table-responsive -->
                     <div class="well">
                         <ul class="pagination">
 
                             <c:if test="${pageMaker.prev}">
-                                <li><a href="list?page=${pageMaker.start-1}&size=${pageMaker.pageDTO.size}">Prev</a> </li>
+                                <li><a href="qlist?page=${pageMaker.start-1}&size=${pageMaker.pageDTO.size}">Prev</a> </li>
                             </c:if>
 
                             <c:forEach begin="${pageMaker.start}" end = "${pageMaker.end}" var="num">
-                                <li ${pageMaker.pageDTO.page == num?"class='active'":""}><a href="list?page=${num}&size=${pageMaker.pageDTO.size}">${num}</a></li>
+                                <li ${pageMaker.pageDTO.page == num?"class='active'":""}><a href="qlist?page=${num}&size=${pageMaker.pageDTO.size}">${num}</a></li>
                             </c:forEach>
 
                             <c:if test="${pageMaker.next}">
-                                <li><a href="list?page=${pageMaker.end+1}&size=${pageMaker.pageDTO.size}">Next</a> </li>
+                                <li><a href="qlist?page=${pageMaker.end+1}&size=${pageMaker.pageDTO.size}">Next</a> </li>
                             </c:if>
 
                         </ul>

@@ -57,7 +57,7 @@
                         <c:forEach var="board" items="${selectPage}" >
                             <tr class="odd gradeX">
                                 <td>${board.bno}</td>
-                                <td>${board.title}</td>
+                                <td><a href="read?bno=${board.bno}&page=${pageMaker.pageDTO.page}">${board.title}</td>
                                 <td>${board.name}</td>
                                 <td>${board.cnt}</td>
                                 <td>${board.regdate}</td>

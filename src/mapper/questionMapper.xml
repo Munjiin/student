@@ -17,10 +17,24 @@ where qno > 0
 and ROWNUM <= (#{page} * #{size}))
 where rn > (#{page}-1) * #{size}
 ]]>
-
 	</select>
 
 
-
+	<select id="response" resultType="QuestionVO">
+select question, mno, qno, reply, name,  percent
+from
+(select
+question, mno, q.qno, reply, name, (sum(reply) over())/(count(*) over()) * 100 percent
+from
+(select
+qno,r.mno,reply,cmt,name
+from
+tbl_response r, tbl_qmember m
+where
+r.mno = m.mno)rm, tbl_question q
+where
+rm.qno = q.qno and q.qno = #{qno})
+where mno= #{mno}
+	</select>
 
 </mapper>

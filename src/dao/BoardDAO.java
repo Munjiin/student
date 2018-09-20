@@ -33,38 +33,27 @@ public class BoardDAO {
 	}
 
 	public List<BoardVO> getList(PageDTO dto) {
-		System.out.println("--------------------------------------------------d");
+	
 
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("page", dto.getPage());
 		paramMap.put("size", dto.getSize());
 
-		System.out.println("--------------------------------------------1");
+		
 		try (SqlSession session = sqlSessionFactory.openSession(true)) {
-			System.out.println("--------------------------------------------2");
-			System.out.println(session.selectList(preFix + ".selectPage", paramMap));
+			
 			return session.selectList(preFix + ".selectPage", paramMap);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("--------------------------------------------3");
+		
 		return null;
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	public void postWrite(BoardVO vo) throws Exception {
 
-//		        new QueryExecutor() {
-//		            @Override
-//		            public void doJob() throws Exception {
-//		                stmt = con.prepareStatement(INSERT);
-//		                int i = 1;
-//		                stmt.setString(i++, vo.getTitle());
-//		                stmt.setString(i++, vo.getCnt());
-//		                stmt.setString(i++, vo.getName());
-//		                stmt.executeUpdate();
-//		            }
-//		        }.executeAll();
+
 
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("title", vo.getTitle());
@@ -80,5 +69,84 @@ public class BoardDAO {
 		}
 
 	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	 public BoardVO getBoard(String bno) throws Exception{
+		 
+		 
+		  BoardVO vo = null;
+
+//	      try (SqlSession session = MyBatisLoader.sqlSessionFactory.openSession(true)) {
+//
+//	         vo = session.selectOne(prefix + ".read", bno);
+//	         
+//	      } catch (Exception e) {
+//	         e.printStackTrace();
+//	      }
+//	      return vo;
+//	   }
+		 
+
+			
+			try (SqlSession session = sqlSessionFactory.openSession(true)) {
+				
+				//System.out.println(session.selectOne(preFix + ".read", bno));
+				vo= session.selectOne(preFix + ".read", bno);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			return vo;
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+//		 
+//		 
+//		 
+//		 
+//		 
+//		 
+//	        BoardVO vo = new BoardVO();
+//
+//	        new QueryExecutor() {
+//	            @Override
+//	            public void doJob() throws Exception {
+//	                if(updateable){
+//	                  
+//	                    stmt.setInt(1,bno);
+//	                    stmt.executeUpdate();
+//	                    stmt.close();
+//	                }
+//	                stmt = con.prepareStatement(READ);
+//	                stmt.setInt(1,bno);
+//	                rs = stmt.executeQuery();
+//	                while(rs.next()){
+//	                    vo.setBno(rs.getInt("bno"));
+//	                    vo.setTitle(rs.getString("title"));
+//	                    vo.setCnt(rs.getString("cnt"));
+//	                   
+//	                    vo.setName(rs.getString("name"));
+//	                    vo.setRegdate(rs.getDate("regdate"));
+//	                    vo.setUpdatedate(rs.getDate("updatedate"));
+//
+//	                }
+//	            }
+//	        }.executeAll();
+
+	        
+	    }
 
 }

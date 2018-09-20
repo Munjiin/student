@@ -37,13 +37,13 @@ public class BoardController extends AbstractController {
 		int total = 320;
 		PageMaker pageMaker = new PageMaker(total, dto);
 
-		System.out.println("-----------------------------------------a");
+	
 
 		req.setAttribute("pageMaker", pageMaker);
-		System.out.println("-----------------------------------------------b");
+		
 		req.setAttribute("selectPage", dao.getList(dto));
 
-		System.out.println("-------------------------------------------c");
+	
 		return "list";
 	}
 
@@ -77,39 +77,22 @@ public class BoardController extends AbstractController {
 	      
 	      return "redirect/list";
 	   }
+	
+	
+	public String readGET(HttpServletRequest req, HttpServletResponse resp) throws Exception{
+        System.out.println("readGET...........................");
+        
+        String bno =req.getParameter("bno");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~bno"+bno);
+       
+           
+        req.setAttribute("board",dao.getBoard(bno));
+        return "read";
+	}
 
 	public String getBasic() {
 		return "/user/board/";
 	}
 
-	/*
-	 * 
-	 * BoardDAO dao = new BoardDAO();
-	 * 
-	 * 
-	 * 
-	 * 
-	 * public String listGET(HttpServletRequest req, HttpServletResponse resp)
-	 * throws Exception{ System.out.println("listGET...........................");
-	 * 
-	 * PageDTO dto = PageDTO.of()
-	 * .setPage(Converter.getInt(req.getParameter("page"),1))
-	 * .setSize(Converter.getInt(req.getParameter("size"),10));
-	 * 
-	 * 
-	 * 
-	 * int total = 320; PageMaker pageMaker = new PageMaker(total,dto);
-	 * 
-	 * req.setAttribute("pageMaker",pageMaker);
-	 * req.setAttribute("list",dao.getList(dto));
-	 * 
-	 * return "list"; }
-	 * 
-	 * 
-	 * 
-	 * 
-	 * @Override public String getBasic() {
-	 * 
-	 * return "/board/"; }
-	 */
+	
 }

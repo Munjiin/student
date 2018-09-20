@@ -46,7 +46,6 @@ public abstract class AbstractController extends HttpServlet {
             }
             System.out.println("/WEB-INF/" + returnURL + ".jsp");
             req.getRequestDispatcher("/WEB-INF/" + returnURL + ".jsp").forward(req,resp);
-            //System.out.println("나는 포기를 모르는 여자");
 
         } catch (Exception e) {
             e.printStackTrace();

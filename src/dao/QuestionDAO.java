@@ -2,7 +2,9 @@ package dao;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import domain.BoardVO;
 import domain.PageDTO;
@@ -12,12 +14,12 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
 import dao.BoardDAO;
 
 public class QuestionDAO {
-	
-	//QuestionDAO
-	private String preFix =  "mapper.questiondMapper";
+	private String preFix =  "mapper.questionMapper";
+	Map<String, Object> paramMap = new HashMap<>();
 	
 	//MybatisLoader
 	static SqlSessionFactory sqlSessionFactory;
@@ -32,19 +34,42 @@ public class QuestionDAO {
 	}
 	}
 	
-	
-			
-	
+		
+	//Question
 	public List<QuestionVO> getList(PageDTO dto) {
 		
+		paramMap.put("page", dto.getPage());
+		paramMap.put("size", dto.getSize());
+		
 		try(SqlSession session = sqlSessionFactory.openSession(true)){
-			return session.selectList(preFix + ".qlist", dto.getPage());
+			
+			return session.selectList(preFix + ".qlist", paramMap);
 		}catch(Exception e) {
 			e.printStackTrace();
 	}
 		return null;
 	}
 
+	//Response
+	public List<QuestionVO> getResponse(int qno, int mno) {
+		
+		paramMap.put("qno", qno);
+		paramMap.put("mno", mno);
+		System.out.println("----------------------------------------qno"+qno);
+		System.out.println("----------------------------------------mno"+mno);
+		
+		try (SqlSession session = sqlSessionFactory.openSession(true)) {
+			System.out.println("--------------------------------------------1");
+			return session.selectList(preFix + ".response", paramMap);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		System.out.println("--------------------------------------------2");
+		return null;
+	}
+	
 	
 	
 	

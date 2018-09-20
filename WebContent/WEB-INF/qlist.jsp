@@ -57,9 +57,9 @@
                             <tr class="odd gradeX">
                                 <td>${question.qno}</td>
                                 <td>
-                                <c:if test="${question.time > 0}"><a href ="understand?page=${pageMaker.pageDTO.page}&qno=${question.qno}&mno=${question.mno}">
+                                <c:if test="${question.time > 0}"><a href ="understand?page=${pageMaker.pageDTO.page}&qno=${question.qno}&mno=${question.mno}&time=${question.time}">
                                 ${question.question}</a></c:if>
-                                  <c:if test="${question.time <= 0}"><a href ="response?page=${pageMaker.pageDTO.page}&qno=${question.qno}&mno=${question.mno}">
+                                  <c:if test="${question.time <= 0}"><a href ="response?page=${pageMaker.pageDTO.page}&qno=${question.qno}&mno=${question.mno}&time=${question.time}">
                                
                                 ${question.question}</a></c:if>
                                 

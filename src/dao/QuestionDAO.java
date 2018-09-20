@@ -55,21 +55,18 @@ public class QuestionDAO {
 		
 		paramMap.put("qno", qno);
 		paramMap.put("mno", mno);
-		System.out.println("----------------------------------------qno"+qno);
-		System.out.println("----------------------------------------mno"+mno);
 		
 		try (SqlSession session = sqlSessionFactory.openSession(true)) {
-			System.out.println("--------------------------------------------1");
 			return session.selectList(preFix + ".response", paramMap);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
-		System.out.println("--------------------------------------------2");
+
 		return null;
 	}
-	
+
 	//UnderstandRead
 	public List<QuestionVO> getUnderstandRead(int qno) {
 		
@@ -110,6 +107,7 @@ public class QuestionDAO {
 			paramMap.put("mno", mno);
 			
 			try (SqlSession session = sqlSessionFactory.openSession(true)) {
+				System.out.println("selectOne: "+session.selectOne(preFix + ".replyCheck", paramMap));
 				return session.selectOne(preFix + ".replyCheck", paramMap);
 
 			} catch (Exception e) {

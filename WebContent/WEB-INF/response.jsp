@@ -31,8 +31,10 @@
 				<div class="panel-body">
 					<div class="panel panel-default">
 						<div style="height: 350px; max-width: 1080px; text-align: left">
-							<br>${response.reply}
-							<br>${response.percent}
+							<br>내가 쓴 답:
+							 ${response.reply==1?"이해해써요":"이해못해써요"}
+							<br>결과 :
+							 ${response.percent}%
 						</div>
 					</div>
 				</div>
@@ -42,8 +44,7 @@
 		
 	</div>
 </table>
-							<a href="response?page=${page}">
-
+							<a href="qlist?page=${page}">
 								<button type="button" class="btn btn-outline btn-primary btn-sm">목록보기</button>
 							</a>
 

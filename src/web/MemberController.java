@@ -25,6 +25,10 @@ public class MemberController extends AbstractController {
 		String id = req.getParameter("id");
 		int password = Converter.getInt((req.getParameter("password")), -1);
 		int seatnum = Converter.getInt((req.getParameter("seatnum")), -1);
+		
+		if (id == dao.login(id).getId()) {
+			return "goback";
+		}
 
 		dao.signup(name, id, password, seatnum);
 
@@ -33,20 +37,18 @@ public class MemberController extends AbstractController {
 
 	public String loginPOST(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		req.setCharacterEncoding("UTF-8");
-	
 
 		String id = req.getParameter("id");
 		int password = Converter.getInt((req.getParameter("password")), -1);
 
 		MemberVO vo = dao.login(id);
-		
+
 		if(password==vo.getPassword()) {
-			System.out.println("간다간다쑝간다");
+			req.getSession().setAttribute("mno", vo.getMno());
 			req.setAttribute("mno", vo.getMno());
 			return "redirect:/user/question/qlist";
 			
 		}else {
-			System.out.println("간다간다안간다");
 			return "redirect:/";
 		}
 

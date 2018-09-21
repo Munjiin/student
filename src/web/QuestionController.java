@@ -16,6 +16,7 @@ public class QuestionController extends AbstractController {
 
 	// qlist
 	public String qlistGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		
 		PageDTO dto = PageDTO.of().setPage(Converter.getInt(req.getParameter("page"), 1))
 				.setSize(Converter.getInt(req.getParameter("size"), 10));
 
@@ -40,23 +41,6 @@ public class QuestionController extends AbstractController {
 		int mno = Converter.getInt((req.getParameter("mno")), -1);
 
 		req.setAttribute("question", dao.getQuestion(qno));
-
-//	        Integer reply = dao.getReplyCheck(qno, mno);
-//	        System.out.println("reply: " + reply);
-//	        Double time = Double.parseDouble(req.getParameter("time"));
-//	        System.out.println("time: " + time);
-
-//	        if(reply != null) {
-//	        	req.setAttribute("response", dao.getResponse(qno, 1));	
-//	        	return "response";
-//	        }else {
-//	        	if(time < 0) {
-//	        		return "understand";
-//	        	}else{
-//	        		return "redirect:/user/question/qlist";
-//	        	}
-//	        }
-
 		req.setAttribute("response", dao.getResponse(qno, 1));
 		return "response";
 
@@ -72,7 +56,7 @@ public class QuestionController extends AbstractController {
 		String pageStr = req.getParameter("page");
 		int page = Converter.getInt(pageStr, -1);
 
-        Integer reply = dao.getReplyCheck(qno, mno);
+        Integer reply = dao.getReplyCheck(qno, 1);
         System.out.println("reply: " + reply);
 
 		if (reply == null) {

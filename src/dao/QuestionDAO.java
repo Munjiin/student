@@ -105,7 +105,7 @@ public class QuestionDAO {
 		
 			paramMap.put("qno", qno);
 			paramMap.put("mno", mno);
-			
+
 			try (SqlSession session = sqlSessionFactory.openSession(true)) {
 				System.out.println("selectOne: "+session.selectOne(preFix + ".replyCheck", paramMap));
 				return session.selectOne(preFix + ".replyCheck", paramMap);

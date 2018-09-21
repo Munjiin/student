@@ -52,10 +52,12 @@
                     <h3 class="panel-title">회원가입</h3>
                 </div>
                 <div class="panel-body">
-                    <form role="form">
+                
+                
+                    <form role="form" action="signup" method="post">
                         <fieldset>
                             <div class="form-group">
-                                <input class="form-control" placeholder="아이디" name="ID" type="ID"  value="${member.id}">
+                                <input class="form-control" placeholder="아이디" name="id" value="${member.id}">
                             </div>
                             <div class="form-group">
                                 <input class="form-control" placeholder="비밀번호 (숫자만 입력)" name="password" type="password" value="${member.password}">
@@ -64,21 +66,21 @@
                                 <input class="form-control" placeholder="비밀번호 확인 (숫자만 입력)" name="password2" type="password" value="">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="닉네임" name="Nickname" type="Nickname" value="${member.name}">
+                                <input class="form-control" placeholder="닉네임" name="name" value="${member.name}">
                             </div>
                                <div class="form-group">
-                                <input class="form-control" placeholder="IP주소 마지막 두자리를 입력하세요" name="Seatnum" type="Seatnum" value="${member.seatnum}">
+                                <input class="form-control" placeholder="IP주소 마지막 두자리를 입력하세요" name="seatnum" value="${member.seatnum}">
                             </div>
                             <!-- Change this to a button or input when using this as a form -->
                             </fieldset>
-                            </form>
+                            
                             
 
                             
                                 <div style="text-align: center">
-                                <form method="post">
-                                    <a href="signup" class="btn btn-outline btn-success">회원가입</a>
-                                </form>
+                               
+                                    <button class="btn btn-outline btn-success">회원가입</button>
+                             </form>
                                        <a href="/index.jsp" class="btn btn-outline btn-primary">취소</a>
                                 </div>
                         

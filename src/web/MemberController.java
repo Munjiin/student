@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.MemberDAO;
+import domain.MemberVO;
 import web.util.Converter;
 
 @WebServlet(urlPatterns = "/user/login/*")
@@ -17,7 +18,7 @@ public class MemberController extends AbstractController {
 	}
 
 	public String signupPOST(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		System.out.println("---------------------------post 들어옴");
+
 		req.setCharacterEncoding("UTF-8");
 
 		String name = req.getParameter("name");
@@ -25,16 +26,38 @@ public class MemberController extends AbstractController {
 		int password = Converter.getInt((req.getParameter("password")), -1);
 		int seatnum = Converter.getInt((req.getParameter("seatnum")), -1);
 
-		System.out.println("--------------name: " + name);
-		System.out.println("--------------id: " + id);
-		System.out.println("--------------pass: " + password);
-		System.out.println("--------------seatnum: " + seatnum);
+		dao.signup(name, id, password, seatnum);
 
-		dao.signUp(name, id, password, seatnum);
-
-		return "redirect:/user/login/";
+		return "redirect:/";
 	}
 
+	public String loginPOST(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		req.setCharacterEncoding("UTF-8");
+	
+
+		String id = req.getParameter("id");
+		int password = Converter.getInt((req.getParameter("password")), -1);
+
+		MemberVO vo = dao.login(id);
+		
+		if(password==vo.getPassword()) {
+			System.out.println("간다간다쑝간다");
+			req.setAttribute("mno", vo.getMno());
+			return "redirect:/user/question/qlist";
+			
+		}else {
+			System.out.println("간다간다안간다");
+			return "redirect:/";
+		}
+
+		
+	}
+	
+	
+	
+	
+	
+	
 	public String getBasic() {
 		return "/user/login/";
 	}

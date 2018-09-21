@@ -23,7 +23,8 @@
   </environments>
     <mappers>
     <mapper resource="mapper/questionMapper.xml"/>
-     <mapper resource="mapper/boardMapper.xml"/>
+    <mapper resource="mapper/boardMapper.xml"/>
+    <mapper resource="mapper/memberMapper.xml"/>
   </mappers>
   
 </configuration>

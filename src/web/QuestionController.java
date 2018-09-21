@@ -23,6 +23,8 @@ public class QuestionController extends AbstractController {
 		int total = dao.getPage();
 		System.out.println("page total: " + total);
 		PageMaker pageMaker = new PageMaker(total, dto);
+		
+		req.setAttribute("mno", req.getParameter("mno"));
 
 		req.setAttribute("pageMaker", pageMaker);
 		req.setAttribute("qlist", dao.getList(dto));

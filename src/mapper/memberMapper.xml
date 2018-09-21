@@ -6,16 +6,22 @@
 
 
 <!-- signup -->
-<insert id="signUp" parameterType="MemberVO">
+<insert id="signup" parameterType="MemberVO">
 
 insert into
-tbl_qmember(mno,name, id, password,seatnum)
+tbl_qmember(mno,name,id,password,seatnum)
 values
 (seq_qmember.nextval,#{name},#{id},#{password},#{seatnum})
-
 </insert>
 
 <!-- login -->
+<select id="login" resultType="MemberVO">
+
+select id, password,mno
+from tbl_qmember
+where id = #{id}
+
+</select>
 
 
 

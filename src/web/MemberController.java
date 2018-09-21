@@ -32,12 +32,17 @@ public class MemberController extends AbstractController {
 		return "redirect:/";
 	}
 
+	//·Î±×ÀÎPOST
 	public String loginPOST(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		req.setCharacterEncoding("UTF-8");
 
 		String id = req.getParameter("id");
 		int password = Converter.getInt((req.getParameter("password")), -1);
 
+		if(password == -1) {
+			return "redirect:/";
+		}
+		
 		MemberVO vo = dao.login(id);
 
 		if(password==vo.getPassword()) {
@@ -45,7 +50,7 @@ public class MemberController extends AbstractController {
 			req.setAttribute("mno", vo.getMno());
 			return "redirect:/user/question/qlist";
 			
-		}else {
+		}else{
 			return "redirect:/";
 		}
 	

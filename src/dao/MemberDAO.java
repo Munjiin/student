@@ -57,8 +57,9 @@ public class MemberDAO {
 	//로그인
 	public MemberVO login(String id) {
 		
-	
+	System.out.println("---------------------로그인 dao");
 		try (SqlSession session = sqlSessionFactory.openSession(true)) {
+			System.out.println("---------------------로그인 dao2");
 			return session.selectOne(preFix + ".login", id);
 
 

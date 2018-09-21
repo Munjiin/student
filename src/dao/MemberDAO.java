@@ -1,6 +1,7 @@
 package dao;
 
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import domain.PageDTO;
 import domain.QuestionVO;
 
 public class MemberDAO {
+
 	private String preFix = "mapper.memberMapper";
 	Map<String, Object> paramMap = new HashMap<>();
 	
@@ -56,16 +58,16 @@ public class MemberDAO {
 	
 	//·Î±×ÀÎ
 	public MemberVO login(String id) {
-		
-	
+
 		try (SqlSession session = sqlSessionFactory.openSession(true)) {
 			return session.selectOne(preFix + ".login", id);
 
 
 		} catch (Exception e) {
-			e.printStackTrace();
+						e.printStackTrace();
 
 		}
+
 		return null;
 	}	
 	

@@ -18,16 +18,18 @@ and ROWNUM <= (#{page} * #{size}))
 where rn > (#{page}-1) * #{size}
 ]]>
 	</select>
-	
-	
+
+
 
 	<!-- response -->
 
 	<select id="response" resultType="QuestionVO">
-		select question, mno, qno, reply, name, percent
+		select question, mno, qno,
+		reply, name, percent
 		from
 		(select
-		question, mno, q.qno, reply, name, (sum(reply) over())/(count(*) over()) * 100
+		question, mno, q.qno, reply, name,
+		(sum(reply) over())/(count(*) over()) * 100
 		percent
 		from
 		(select
@@ -35,32 +37,36 @@ where rn > (#{page}-1) * #{size}
 		from
 		tbl_response r, tbl_qmember m
 		where
-		r.mno = m.mno)rm, tbl_question q
+		r.mno =
+		m.mno)rm, tbl_question q
 		where
 		rm.qno = q.qno and q.qno = #{qno})
-		where mno= #{mno}
+		where
+		mno= #{mno}
 	</select>
 
-<!-- replycheck -->
+	<!-- replycheck -->
 
-<select id="replyCheck" resultType="QuestionVO">
+	<select id="replyCheck" resultType="QuestionVO">
 		select reply
 		from tbl_response
 		where qno = #{qno} and mno = #{mno}
 	</select>
 
 
-<!-- getQuestion -->
+	<!-- getQuestion -->
 
-<select id="getQuestion" resultType="QuestionVO">
+	<select id="getQuestion" resultType="QuestionVO">
 		select qno, question
-		from tbl_question
+		from
+		tbl_question
 		where qno = #{qno}
 	</select>
-	
-	<!-- getPage-->
 
-<select id="getPage" resultType="int">
+
+	<!-- getPage -->
+
+	<select id="getPage" resultType="int">
 		select count(*)
 		from tbl_question
 	</select>
@@ -72,8 +78,7 @@ where rn > (#{page}-1) * #{size}
 		qno, question
 		from
 		tbl_question
-		where
-		qno = #{qno}
+		where qno = #{qno}
 	</select>
 
 
@@ -85,6 +90,19 @@ where rn > (#{page}-1) * #{size}
 		values
 		(#{qno},#{mno},#{reply},#{cmt})
 	</insert>
+	
+		<!-- getResult -->
+
+	<select id="getResult" resultType="ResultVO">
+		select
+total-(select count(reply) from tbl_response where qno=#{qno}) noresponse,
+(select count(reply) from tbl_response where qno=#{qno} and reply=1) res_yes,
+(select count(reply) from tbl_response where qno=#{qno} and reply=0) res_no,
+total,
+(select count(reply) from tbl_response where qno=4 and reply=1)/total*100 percent
+from
+(select count(seatnum) total from tbl_qmember) seat
+	</select>
 
 
 

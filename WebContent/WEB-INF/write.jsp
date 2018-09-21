@@ -10,55 +10,55 @@
 <%@ include file="includes/header.jsp"%>
 
 <div id="page-wrapper">
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header">글을 등록해주세요</h1>
-		</div>
-		<!-- /.col-lg-12 -->
-	</div>
-	<!-- /.row -->
-	<div class="row">
-		<div class="col-lg-12">
+   <div class="row">
+      <div class="col-lg-12">
+         <h1 class="page-header">글을 등록해주세요</h1>
+      </div>
+      <!-- /.col-lg-12 -->
+   </div>
+   <!-- /.row -->
+   <div class="row">
+      <div class="col-lg-12">
 
 
-			<p class="panel panel-default">
-			<div class="panel-heading">원하는 글을 써주세요~</div>
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-lg-6">
+         <p class="panel panel-default">
+         <div class="panel-heading">원하는 글을 써주세요~</div>
+         <div class="panel-body">
+            <div class="row">
+               <div class="col-lg-6">
 
-						<form action="/user/board/write" method="post" enctype="multipart/form-data" >
+                  <form action="/user/board/write" method="post" enctype="multipart/form-data" >
 
-							<div class="form-group">
-								<label>제목</label> <input class="form-control" name="title">
-							</div>
-							<div class="form-group">
-								<label>작성자</label> <input class="form-control"
-									placeholder="Enter text" name="name">
-							</div>
-							<div class="form-group">
-								<label>내용</label> <input class="form-control"
-									placeholder="Enter text" name="cnt">
-							</div>
-							
-							<input type='file' name='addfile' multiple="multiple">
+                     <div class="form-group">
+                        <label>제목</label> <input class="form-control" name="title">
+                     </div>
+                     <div class="form-group">
+                        <label>작성자</label> <input class="form-control"
+                           placeholder="Enter text" name="name">
+                     </div>
+                     <div class="form-group">
+                        <label>내용</label> <input class="form-control"
+                           placeholder="Enter text" name="cnt">
+                     </div>
+                     
+                     <input type='file' name='addfile' multiple="multiple">
 
-							
+                     
 
-							<button>등록</button>
-						</form>
+                     <button>등록</button>
+                  </form>
 
-					</div>
-				</div>
-				<!-- /.panel-body -->
-			</div>
-
-
-
-			<a href="/user/board/list?page=${page}"><button>취소</button>
-		</div>
+               </div>
+            </div>
+            <!-- /.panel-body -->
+         </div>
 
 
 
+         <a href="/user/board/list?page=${page}"><button>취소</button>
+      </div>
 
-		<%@ include file="includes/footer.jsp"%>
+
+
+
+      <%@ include file="includes/footer.jsp"%>

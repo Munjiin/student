@@ -33,11 +33,28 @@
                     <div class="panel panel-default">
                         <div style="height: 350px; max-width: 1080px; text-align: left">
                             <br>
-                            ${board.cnt}
+                              
+                            
+                            ${board.cnt} 
+                            
                         </div>
                     </div>
-                    <div class="panel-footer">
-                        <div style="height: auto; max-width: 1080px; text-align: right;">
+                    
+                    
+                    <div class="panel panel-default">
+                        <div style="height: auto; max-width: auto; text-align: left">
+                            <br>
+                              
+                        
+                         
+                          <a href='/getFile?fname=${board.addfile}'><h2>첨부파일 다운로드</h2></a>
+                        <a href="/getFile?fname=${board.addfile}">  <img src ="/getFile?fname=${board.addfile}"  style= width:200px>
+                        </div>
+                    </div>
+                 
+                        
+             
+              
 
 
         <%--<form action="/modify">--%>

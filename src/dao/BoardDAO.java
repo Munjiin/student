@@ -16,106 +16,117 @@ import domain.PageDTO;
 
 public class BoardDAO {
 
-	// QuestionDAO
-	private String preFix = "mapper.boardMapper";
+   // QuestionDAO
+   private String preFix = "mapper.boardMapper";
 
-	// MybatisLoader
-	static SqlSessionFactory sqlSessionFactory;
+   // MybatisLoader
+   static SqlSessionFactory sqlSessionFactory;
 
-	static {
-		try {
-			String resource = "mybatis-config.xml";
-			InputStream inputStream = Resources.getResourceAsStream(resource);
-			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+   static {
+      try {
+         String resource = "mybatis-config.xml";
+         InputStream inputStream = Resources.getResourceAsStream(resource);
+         sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
 
-	public List<BoardVO> getList(PageDTO dto) {
+   public List<BoardVO> getList(PageDTO dto) {
 
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("page", dto.getPage());
-		paramMap.put("size", dto.getSize());
+      Map<String, Object> paramMap = new HashMap<>();
+      paramMap.put("page", dto.getPage());
+      paramMap.put("size", dto.getSize());
 
-		try (SqlSession session = sqlSessionFactory.openSession(true)) {
+      try (SqlSession session = sqlSessionFactory.openSession(true)) {
 
-			return session.selectList(preFix + ".selectPage", paramMap);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+         return session.selectList(preFix + ".selectPage", paramMap);
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
 
-		return null;
-	}
+      return null;
+   }
+   //totalpage
+         public int getPage() {
 
-	//////////////////////////////////////////////////////////////////////////////////////////////////
-	public void postWrite(BoardVO vo) throws Exception {
+            try(SqlSession session = sqlSessionFactory.openSession(true)){
+               
+               return session.selectOne(preFix + ".getPage");
+            }catch(Exception e) {
+               e.printStackTrace();
+         }
+            return 0;
+         }
+   //////////////////////////////////////////////////////////////////////////////////////////////////
+   public void postWrite(BoardVO vo) throws Exception {
 
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("title", vo.getTitle());
-		paramMap.put("name", vo.getName());
-		paramMap.put("cnt", vo.getCnt());
-		paramMap.put("addfile", vo.getAddfile());
+      Map<String, Object> paramMap = new HashMap<>();
+      paramMap.put("title", vo.getTitle());
+      paramMap.put("name", vo.getName());
+      paramMap.put("cnt", vo.getCnt());
+      paramMap.put("addfile", vo.getAddfile());
 
-		try (SqlSession session = sqlSessionFactory.openSession(true)) {
-			session.selectList(preFix + ".create", paramMap);
+      try (SqlSession session = sqlSessionFactory.openSession(true)) {
+         session.selectList(preFix + ".create", paramMap);
 
-			// return session.selectList(preFix + ".create", paramMap);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+         // return session.selectList(preFix + ".create", paramMap);
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
 
-	}
+   }
 
-	///////////////////////////////////////////////////////////////////////////////////////////////////
+   ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-	public BoardVO getBoard(int bno) throws Exception {
+   public BoardVO getBoard(int bno) throws Exception {
 
-		BoardVO vo = null;
+      BoardVO vo = null;
 
-		try (SqlSession session = sqlSessionFactory.openSession(true)) {
+      try (SqlSession session = sqlSessionFactory.openSession(true)) {
 
-			vo = session.selectOne(preFix + ".read", bno);
+         vo = session.selectOne(preFix + ".read", bno);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
 
-		return vo;
+      return vo;
 
-	}
+   }
 
-	public void modifyContent(final BoardVO vo) {
+   public void modifyContent(final BoardVO vo) {
 
-		Map<String, Object> paramMap = new HashMap<>();
+      Map<String, Object> paramMap = new HashMap<>();
 
-		paramMap.put("bno", vo.getBno());
-		paramMap.put("title", vo.getTitle());
-		paramMap.put("cnt", vo.getCnt());
+      paramMap.put("bno", vo.getBno());
+      paramMap.put("title", vo.getTitle());
+      paramMap.put("cnt", vo.getCnt());
+      paramMap.put("addfile", vo.getAddfile());
 
-		try (SqlSession session = sqlSessionFactory.openSession(true)) {
-			session.selectList(preFix + ".modify", paramMap);
+      try (SqlSession session = sqlSessionFactory.openSession(true)) {
+         session.selectList(preFix + ".modify", paramMap);
 
-			// return session.selectList(preFix + ".create", paramMap);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+         // return session.selectList(preFix + ".create", paramMap);
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
 
-	}
+   }
 
-	///////////////////////////////////////////////////////////////////////////////////
-	// remove
-	public void removeContent(final int bno) {
-		
-		
-		try (SqlSession session = sqlSessionFactory.openSession(true)) {
-			session.selectList(preFix + ".remove", bno);
+   ///////////////////////////////////////////////////////////////////////////////////
+   // remove
+   public void removeContent(final int bno) {
+      
+      
+      try (SqlSession session = sqlSessionFactory.openSession(true)) {
+         session.selectList(preFix + ".remove", bno);
 
-			// return session.selectList(preFix + ".create", paramMap);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+         // return session.selectList(preFix + ".create", paramMap);
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
 
-	}
+   }
 
 }

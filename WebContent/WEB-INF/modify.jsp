@@ -24,7 +24,7 @@
                                             <div class="row">
                                                 <div class="col-lg-6">
 
-                                                    <form method="post">
+                                                    <form method="post" enctype="multipart/form-data">
 
                                                         <div class="form-group">
                                                             <label>제목</label>
@@ -40,6 +40,8 @@
 
 
                                                         <button>수정</button>
+                                                        
+                                                        <input type='file' name='addfile' multiple="multiple">
                                                     </form>
 
                                                 </div>

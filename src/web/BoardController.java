@@ -20,7 +20,7 @@ import javax.servlet.http.Part;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.imgscalr.Scalr;
-//import web.Extchecker;
+
 
 import dao.BoardDAO;
 import domain.BoardVO;
@@ -30,12 +30,12 @@ import web.util.Converter;
 
 @WebServlet(urlPatterns = "/user/board/*")
 
-@MultipartConfig(fileSizeThreshold=1024*1024*10, 	// 10 MB 
-        maxFileSize=1024*1024*50,      	// 50 MB
+@MultipartConfig(fileSizeThreshold=1024*1024*10,    // 10 MB 
+        maxFileSize=1024*1024*50,         // 50 MB
         maxRequestSize=1024*1024*100,
         location="C:\\zzz\\upload\\")   
 public class BoardController extends AbstractController {
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
     
     /**
      * @see HttpServlet#HttpServlet()
@@ -45,185 +45,247 @@ public class BoardController extends AbstractController {
      }
   
 
-	BoardDAO dao = new BoardDAO();
-	Converter converter = new Converter();
-	
-	
-	
+   BoardDAO dao = new BoardDAO();
+   Converter converter = new Converter();
+   
+   
+   
 
-	public BoardController(BoardDAO dao, Converter converter) {
-		super();
-		this.dao = dao;
-		this.converter = converter;
-	}
+   public BoardController(BoardDAO dao, Converter converter) {
+      super();
+      this.dao = dao;
+      this.converter = converter;
+   }
 
-	// list
-	public String listGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+   // list
+   public String listGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
-		PageDTO dto = PageDTO.of().setPage(Converter.getInt(req.getParameter("page"), 1))
-				.setSize(Converter.getInt(req.getParameter("size"), 10));
+      PageDTO dto = PageDTO.of().setPage(Converter.getInt(req.getParameter("page"), 1))
+            .setSize(Converter.getInt(req.getParameter("size"), 10));
 
-		int total = 320;
-		PageMaker pageMaker = new PageMaker(total, dto);
+      int total = dao.getPage();
+      
+      System.out.println(total);
+      PageMaker pageMaker = new PageMaker(total, dto);
+System.out.println(pageMaker);
+      req.setAttribute("pageMaker", pageMaker);
 
-		req.setAttribute("pageMaker", pageMaker);
+      req.setAttribute("selectPage", dao.getList(dto));
 
-		req.setAttribute("selectPage", dao.getList(dto));
+      return "list";
+   }
 
-		return "list";
-	}
+   public String writeGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+      System.out.println("writeGET...........................");
+      RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/write.jsp");
 
-	public String writeGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		System.out.println("writeGET...........................");
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/write.jsp");
+      dispatcher.forward(req, resp);
+      return "write";
+   }
+   
 
-		dispatcher.forward(req, resp);
-		return "write";
-	}
-	
+   public String writePOST(HttpServletRequest req, HttpServletResponse resp) throws Exception, ServletException, IOException {
+      
+      
+      System.out.println("writePOST..................");
 
-	public String writePOST(HttpServletRequest req, HttpServletResponse resp) throws Exception, ServletException, IOException {
-		
-		
-		System.out.println("writePOST..................");
+      req.setCharacterEncoding("UTF-8");
+      BoardVO vo = new BoardVO();
 
-		req.setCharacterEncoding("UTF-8");
-		BoardVO vo = new BoardVO();
+      
+      
+   
+   
+   
+   
 
-		
-		String title = req.getParameter("title");
-		String writer = req.getParameter("name");
-		String cnt = req.getParameter("cnt");
-		String addfile =  UUID.randomUUID()+"_"+req.getParameter("addfile");
-		
+      //첨부파일
+      Collection<Part> parts = req.getParts();
+      System.out.println("콜렉션 확인용~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+      parts.stream().filter(part->part.getContentType() !=null).forEach(part ->{ //null 인 것만 filter
+         
+         
+         
+         System.out.println(part.getContentType());
+         System.out.println(part.getSubmittedFileName());
+         System.out.println("-----------------------------------------");
+         
+         String uploadName =UUID.randomUUID()+"_"+part.getSubmittedFileName(); //,거의 중복되지 않는 숫자.
+         
+         String title = req.getParameter("title");
+         String writer = req.getParameter("name");
+         String cnt = req.getParameter("cnt");
+         String addfile =  uploadName;
+         
 
-		vo.setTitle(title);
-		vo.setCnt(cnt);
-		vo.setName(writer);
-		vo.setAddfile(addfile);
+         vo.setTitle(title);
+         vo.setCnt(cnt);
+         vo.setName(writer);
+         vo.setAddfile(addfile);
 
-		dao.postWrite(vo);
-		
-	
-	
-	
-	
+         
+         
+         //서버만
+         try {
+            InputStream in  =  part.getInputStream();
+            FileOutputStream fos = new FileOutputStream("C:\\zzz\\upload\\" +  uploadName);
+            
+            IOUtils.copy(in, fos); //유틸 추가
+            
+            
+            in.close();
+            fos.close();
+            
+         } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }
+      });
+      
+      dao.postWrite(vo);
+      
 
-		//첨부파일
-		Collection<Part> parts = req.getParts();
-		System.out.println("콜렉션 확인용~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		parts.stream().filter(part->part.getContentType() !=null).forEach(part ->{ //null 인 것만 filter
-			
-			
-			
-			System.out.println(part.getContentType());
-			System.out.println(part.getSubmittedFileName());
-			System.out.println("-----------------------------------------");
-			
-			String uploadName =part.getSubmittedFileName(); //,거의 중복되지 않는 숫자.
-			
-			//서버만
-			try {
-				InputStream in  =  part.getInputStream();
-				FileOutputStream fos = new FileOutputStream("C:\\zzz\\upload\\" +  uploadName);
-				
-				IOUtils.copy(in, fos); //유틸 추가
-				
-//				if(Extchecker.check(uploadName)) { //확장자 체크
-//				
-//				//make 섬네일
-//				BufferedImage bImage = ImageIO.read(new FileInputStream("C:\\zzz\\upload\\" +  uploadName)); 
-//				//resize to 150 pixels max
-//				BufferedImage thumbnail = Scalr.resize(bImage,
-//                        Scalr.Method.SPEED,
-//                        Scalr.Mode.FIT_TO_WIDTH,
-//                        150,
-//                        100,
-//                        Scalr.OP_ANTIALIAS);
-//				
-//				FileOutputStream thfos = new FileOutputStream("C:\\zzz\\upload\\s_"+uploadName);
-//				ImageIO.write(thumbnail, "jpg",thfos );
-//				thfos.close();	
-//				}//if
-				
-				in.close();
-				fos.close();
-				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		});
+      int page = Converter.getInt(req.getParameter("page"), -1);
+      req.setAttribute("page", page);
+   
+      
+      
+      
 
-		int page = Converter.getInt(req.getParameter("page"), -1);
-		req.setAttribute("page", page);
-	
-		
-		
-		
+      return "redirect/list";
+   }
 
-		return "redirect/list";
-	}
+   public String readGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+      System.out.println("readGET...........................");
+      String pageStr = req.getParameter("page");
+      String bnoStr = req.getParameter("bno");
+      int bno = Converter.getInt(bnoStr, -1);
 
-	public String readGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		System.out.println("readGET...........................");
+      System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~bno" + bno);
+      req.setAttribute("page", pageStr);
+      req.setAttribute("board", dao.getBoard(bno));
+      return "read";
+   }
 
-		String bnoStr = req.getParameter("bno");
-		int bno = Converter.getInt(bnoStr, -1);
+   public String modifyGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+      System.out.println("modify..............................");
 
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~bno" + bno);
+      String bnoStr = req.getParameter("bno");
+      int bno = Converter.getInt(bnoStr, -1);
 
-		req.setAttribute("board", dao.getBoard(bno));
-		return "read";
-	}
+      req.setAttribute("board", dao.getBoard(bno));
 
-	public String modifyGET(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		System.out.println("modify..............................");
+      return "modify";
+   }
 
-		String bnoStr = req.getParameter("bno");
-		int bno = Converter.getInt(bnoStr, -1);
+   public void modifyPOST(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
-		req.setAttribute("board", dao.getBoard(bno));
+      req.setCharacterEncoding("UTF-8");
 
-		return "modify";
-	}
+      System.out.println("modify post..............................");
 
-	public void modifyPOST(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+      BoardVO vo = new BoardVO();
+      
+      int bno = converter.getInt(req.getParameter("bno"), -1);
+/*
+      vo.setBno(bno);
+      vo.setTitle(req.getParameter("title"));
+      vo.setCnt(req.getParameter("cnt"));
 
-		req.setCharacterEncoding("UTF-8");
+      dao.modifyContent(vo);
 
-		System.out.println("modify post..............................");
+      req.setAttribute("board", dao.getBoard(bno));
 
-		BoardVO vo = new BoardVO();
-		int bno = converter.getInt(req.getParameter("bno"), -1);
+      RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/read.jsp");
+      dispatcher.forward(req, resp);
+      */
+      
+   
+   
 
-		vo.setBno(bno);
-		vo.setTitle(req.getParameter("title"));
-		vo.setCnt(req.getParameter("cnt"));
+      //첨부파일
+      Collection<Part> parts = req.getParts();
+      System.out.println("콜렉션 확인용~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+      parts.stream().filter(part->part.getContentType() !=null).forEach(part ->{ //null 인 것만 filter
+         
+         
+         
+         System.out.println(part.getContentType());
+         System.out.println(part.getSubmittedFileName());
+         System.out.println("-----------------------------------------");
+         
+         String uploadName =UUID.randomUUID()+"_"+part.getSubmittedFileName(); //,거의 중복되지 않는 숫자.
+         
+         
+         String addfile =  uploadName;
+         
+         
 
-		dao.modifyContent(vo);
+         vo.setBno(bno);
+         vo.setTitle(req.getParameter("title"));
+         vo.setCnt(req.getParameter("cnt"));
+         vo.setAddfile(addfile);
+         
+         
 
-		req.setAttribute("board", dao.getBoard(bno));
+         
+         //서버만
+         try {
+            InputStream in  =  part.getInputStream();
+            FileOutputStream fos = new FileOutputStream("C:\\zzz\\upload\\" +  uploadName);
+            
+            IOUtils.copy(in, fos); //유틸 추가
+            
+            
+            in.close();
+            fos.close();
+            
+         } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }
+      });
+      dao.modifyContent(vo);
+      
+      
 
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/read.jsp");
-		dispatcher.forward(req, resp);
-	}
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
+      req.setAttribute("board", dao.getBoard(bno));
 
-	public String removePOST(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		System.out.println("remove................................");
+      RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/read.jsp");
+      dispatcher.forward(req, resp);
+   
+      
+      
+      
 
-		int bno = Converter.getInt(req.getParameter("bno"), -1);
-		int page = Converter.getInt(req.getParameter("page"), -1);
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+   }
+   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		dao.removeContent(bno);
+   public String removePOST(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+      System.out.println("remove................................");
 
-		return "redirect/list";
+      int bno = Converter.getInt(req.getParameter("bno"), -1);
+      int page = Converter.getInt(req.getParameter("page"), -1);
 
-	}
+      dao.removeContent(bno);
 
-	public String getBasic() {
-		return "/user/board/";
-	}
+      return "redirect/list";
+
+   }
+
+   public String getBasic() {
+      return "/user/board/";
+   }
 
 }

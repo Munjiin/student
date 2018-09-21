@@ -70,7 +70,7 @@
               <form method="post">
                 <div style="text-align: center">
               <a href="/signup.jsp" class="btn btn-outline btn-success">회원가입</a>
-                <a href="/board/list" class="btn btn-outline btn-primary">로그인</a>
+                <a href="user/question/qlist" class="btn btn-outline btn-primary">로그인</a>
                 </div>
               </form>
             </fieldset>

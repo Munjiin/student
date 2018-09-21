@@ -1,21 +1,18 @@
 package dao;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import domain.BoardVO;
-import domain.PageDTO;
-import domain.QuestionVO;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import dao.BoardDAO;
+import domain.PageDTO;
+import domain.QuestionVO;
+import domain.ResultVO;
 
 public class QuestionDAO {
 	private String preFix =  "mapper.questionMapper";
@@ -55,21 +52,18 @@ public class QuestionDAO {
 		
 		paramMap.put("qno", qno);
 		paramMap.put("mno", mno);
-		System.out.println("----------------------------------------qno"+qno);
-		System.out.println("----------------------------------------mno"+mno);
 		
 		try (SqlSession session = sqlSessionFactory.openSession(true)) {
-			System.out.println("--------------------------------------------1");
 			return session.selectList(preFix + ".response", paramMap);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
-		System.out.println("--------------------------------------------2");
+
 		return null;
 	}
-	
+
 	//UnderstandRead
 	public List<QuestionVO> getUnderstandRead(int qno) {
 		
@@ -108,8 +102,9 @@ public class QuestionDAO {
 		
 			paramMap.put("qno", qno);
 			paramMap.put("mno", mno);
-			
+
 			try (SqlSession session = sqlSessionFactory.openSession(true)) {
+				System.out.println("selectOne: "+session.selectOne(preFix + ".replyCheck", paramMap));
 				return session.selectOne(preFix + ".replyCheck", paramMap);
 
 			} catch (Exception e) {
@@ -118,8 +113,44 @@ public class QuestionDAO {
 			}
 			return -1;
 		}
+
+		//Question
+		public List<QuestionVO> getQuestion(int qno) {
+
+			try(SqlSession session = sqlSessionFactory.openSession(true)){
+
+				return session.selectList(preFix + ".getQuestion", qno);
+			}catch(Exception e) {
+				e.printStackTrace();
+		}
+			return null;
+		}
+
+		//totalpage
+		public int getPage() {
+
+			try(SqlSession session = sqlSessionFactory.openSession(true)){
+				
+				return session.selectOne(preFix + ".getPage");
+			}catch(Exception e) {
+				e.printStackTrace();
+		}
+			return 0;
+		}
 	
 	
+		//getResult
+		public ResultVO getResult(int qno) {
+
+			try(SqlSession session = sqlSessionFactory.openSession(true)){
+
+				return session.selectOne(preFix + ".getResult", qno);
+			}catch(Exception e) {
+				e.printStackTrace();
+		}
+			return null;
+		}
+		
 	
 }
 	

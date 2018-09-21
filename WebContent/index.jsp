@@ -8,6 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -69,26 +71,18 @@
 									</label>
 								</div>
 								<!-- Change this to a button or input when using this as a form -->
-
-								<button class="btn btn-outline btn-primary">로그인</button>
+								<div class style="text-align: center">
+									<button class="btn btn-outline btn-primary">로그인</button>
+									<a href="/user/login/signup"
+										class="btn btn-outline btn-success">회원가입</a>
+								</div>
 							</fieldset>
 						</form>
+
 					</div>
-	
-						<div style="text-align: center">
-							<a href="/user/login/signup" class="btn btn-outline btn-success">회원가입</a>
-					
-
-
-
-
-
-
-
 				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 
 	<!-- jQuery -->

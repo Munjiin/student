@@ -26,6 +26,7 @@ public class MemberController extends AbstractController {
 		int password = Converter.getInt((req.getParameter("password")), -1);
 		int seatnum = Converter.getInt((req.getParameter("seatnum")), -1);
 		
+<<<<<<< HEAD
 		System.out.println("------------id" + id);
 		System.out.println(dao.login(id).getId());
 		
@@ -33,17 +34,25 @@ public class MemberController extends AbstractController {
 			return "signup";
 		}
 
+=======
+	
+>>>>>>> refs/remotes/origin/master
 		dao.signup(name, id, password, seatnum);
 
 		return "redirect:/";
 	}
 
+	//·Î±×ÀÎPOST
 	public String loginPOST(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		req.setCharacterEncoding("UTF-8");
 
 		String id = req.getParameter("id");
 		int password = Converter.getInt((req.getParameter("password")), -1);
 
+		if(password == -1) {
+			return "redirect:/";
+		}
+		
 		MemberVO vo = dao.login(id);
 
 		if(password==vo.getPassword()) {
@@ -51,13 +60,18 @@ public class MemberController extends AbstractController {
 			req.setAttribute("mno", vo.getMno());
 			return "redirect:/user/question/qlist";
 			
-		}else {
+		}else{
 			return "redirect:/";
 		}
+<<<<<<< HEAD
 
 	}
 
 	
+=======
+	
+	}	
+>>>>>>> refs/remotes/origin/master
 	
 	public String getBasic() {
 		return "/user/login/";

@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Bootstrap Admin Theme</title>
+  <title>가익'있'는 가익팀 / Do you understand?</title>
 
   <!-- Bootstrap Core CSS -->
   <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -67,12 +67,15 @@
               </div>
               <!-- Change this to a button or input when using this as a form -->
 
-              <form method="post">
+              <form method=get">
                 <div style="text-align: center">
-              <a href="/signup.jsp" class="btn btn-outline btn-success">회원가입</a>
+              <a href="/user/login/signup" class="btn btn-outline btn-success">회원가입</a>
+                  </form>
+                  
+
                 <a href="user/question/qlist" class="btn btn-outline btn-primary">로그인</a>
                 </div>
-              </form>
+          
             </fieldset>
           </form>
         </div>

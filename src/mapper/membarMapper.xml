@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.memberMapper">
+
+
+<!-- signup -->
+<insert id="signUp" parameterType="MemberVO">
+
+insert into
+tbl_qmember(mno,name, id, password,seatnum)
+values
+(seq_qmember.nextval,#{name},#{id},#{password},#{seatnum})
+
+</insert>
+
+<!-- login -->
+
+
+
+
+
+
+
+
+<!-- 아래 코드 해당 없음 (question 복붙) -->
+	<!-- qlist -->
+	<select id="qlist" resultType="QuestionVO">
+<![CDATA[  
+select *
+from
+(select
+/*+ INDEX_DESC (tbl_question pk_question) */
+ROWNUM rn, qno, question, regdate, (regdate + ( 1/ (24 * 60) * limittime))-sysdate time
+from TBL_question 
+where qno > 0
+and ROWNUM <= (#{page} * #{size}))
+where rn > (#{page}-1) * #{size}
+]]>
+	</select>
+	
+	
+
+	<!-- response -->
+
+	<select id="response" resultType="QuestionVO">
+		select question, mno, qno, reply, name, percent
+		from
+		(select
+		question, mno, q.qno, reply, name, (sum(reply) over())/(count(*) over()) * 100
+		percent
+		from
+		(select
+		qno,r.mno,reply,cmt,name
+		from
+		tbl_response r, tbl_qmember m
+		where
+		r.mno = m.mno)rm, tbl_question q
+		where
+		rm.qno = q.qno and q.qno = #{qno})
+		where mno= #{mno}
+	</select>
+
+<!-- replycheck -->
+
+<select id="replyCheck" resultType="QuestionVO">
+		select reply
+		from tbl_response
+		where qno = #{qno} and mno = #{mno}
+	</select>
+
+
+<!-- getQuestion -->
+
+<select id="getQuestion" resultType="QuestionVO">
+		select qno, question
+		from tbl_question
+		where qno = #{qno}
+	</select>
+	
+	<!-- getPage-->
+
+<select id="getPage" resultType="int">
+		select count(*)
+		from tbl_question
+	</select>
+
+	<!-- understand(read) -->
+
+	<select id="understandRead" resultType="QuestionVO">
+		select
+		qno, question
+		from
+		tbl_question
+		where
+		qno = #{qno}
+	</select>
+
+
+	<!-- understand(send) -->
+	<insert id="understandSend" parameterType="QuestionVO">
+		insert into
+		tbl_response
+		(qno,mno, reply,cmt)
+		values
+		(#{qno},#{mno},#{reply},#{cmt})
+	</insert>
+
+
+
+</mapper>

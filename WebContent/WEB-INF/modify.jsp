@@ -48,7 +48,7 @@
                                         </div>
 
 
-                                        <form action = "/board/remove" method="POST" style="float:left;">
+                                        <form action = "/user/board/remove" method="POST" style="float:left;">
                                             <input type="hidden" name="bno" value="${board.bno}">
                                             <button> 삭제 </button>
                                         </form>

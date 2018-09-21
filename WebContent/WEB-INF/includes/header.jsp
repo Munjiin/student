@@ -84,12 +84,12 @@
 						class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-user fa-fw">${member.name}님 환영합니다!</i></a>
+                    <li><a href="#"><i class="fa fa-user fa-fw">회원님 환영합니다!</i></a>
                     </li>
                   
                     <li class="divider"></li>
                     <li><a href="logout"><i
-								class="fa fa-sign-out fa-fw"></i> Logout</a>
+								class="fa fa-sign-out fa-fw"></i>Logout</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->

@@ -20,7 +20,7 @@ import javax.servlet.http.Part;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.imgscalr.Scalr;
-import web.Extchecker;
+//import web.Extchecker;
 
 import dao.BoardDAO;
 import domain.BoardVO;

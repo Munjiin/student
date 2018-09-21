@@ -71,15 +71,16 @@
 									</label>
 								</div>
 								<!-- Change this to a button or input when using this as a form -->
-
-								<button class="btn btn-outline btn-primary">로그인</button>
+								<div style="text-align: center">
+									<button class="btn btn-outline btn-primary">로그인</button>
+										<a href="/user/login/signup" class="btn btn-outline btn-success">회원가입</a>
 							</fieldset>
 						</form>
 					</div>
-	
-						<div style="text-align: center">
-							<a href="/user/login/signup" class="btn btn-outline btn-success">회원가입</a>
-					
+
+
+				
+
 
 
 

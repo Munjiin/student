@@ -71,27 +71,18 @@
 									</label>
 								</div>
 								<!-- Change this to a button or input when using this as a form -->
-								<div style="text-align: center">
+								<div class style="text-align: center">
 									<button class="btn btn-outline btn-primary">로그인</button>
-										<a href="/user/login/signup" class="btn btn-outline btn-success">회원가입</a>
+									<a href="/user/login/signup"
+										class="btn btn-outline btn-success">회원가입</a>
+								</div>
 							</fieldset>
 						</form>
+
 					</div>
-
-
-				
-
-
-
-
-
-
-
-
 				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 
 	<!-- jQuery -->

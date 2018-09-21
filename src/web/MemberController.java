@@ -26,10 +26,7 @@ public class MemberController extends AbstractController {
 		int password = Converter.getInt((req.getParameter("password")), -1);
 		int seatnum = Converter.getInt((req.getParameter("seatnum")), -1);
 		
-		if (id == dao.login(id).getId()) {
-			return "goback";
-		}
-
+	
 		dao.signup(name, id, password, seatnum);
 
 		return "redirect:/";
@@ -51,14 +48,8 @@ public class MemberController extends AbstractController {
 		}else {
 			return "redirect:/";
 		}
-
-		
-	}
 	
-	
-	
-	
-	
+	}	
 	
 	public String getBasic() {
 		return "/user/login/";

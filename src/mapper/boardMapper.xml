@@ -9,7 +9,9 @@
 
 
 	<delete id="remove">
-		delete from tbl_board where bno = #{bno}
+	<![CDATA[ 
+		delete from tbl_qboard where bno = #{bno}
+		]]>
 	</delete>
 	
 	<update id="modify">
@@ -23,9 +25,9 @@
 
 	<insert id="create" parameterType="BoardVO">
 		insert into tbl_qboard qb
-		(mno, bno, title, cnt)
+		(mno, bno, title, cnt ,addfile)
 		values((select mno from tbl_qmember where
-		name=#{name}),seq_qboard.nextval,#{title},#{cnt})
+		name=#{name}),seq_qboard.nextval,#{title},#{cnt},#{addfile})
 	</insert>
 
 

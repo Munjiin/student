@@ -2,6 +2,7 @@ package web;
 
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,7 +10,12 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 
 
+@MultipartConfig(fileSizeThreshold=1024*1024*10, 	// 10 MB 
+                 maxFileSize=1024*1024*50,      	// 50 MB
+                 maxRequestSize=1024*1024*100)  
 public abstract class AbstractController extends HttpServlet {
+	
+	  
 
     public abstract String getBasic();
 
